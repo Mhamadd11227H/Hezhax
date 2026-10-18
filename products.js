@@ -45,6 +45,10 @@
           { items: { ku: "کلاو + ملپێچ", en: "Hat + Scarf" } }),
      ئەنجام: ل بەشێ "سێتێن تایبەت" کارتەکا نوی دهێتە دەرکەفتن، و ل ژێر ناڤی
              "کلاو + ملپێچ" دیار دبیت (ل پەنجەرا بەرهەمی ژی: "ناڤەرۆک: کلاو + ملپێچ").
+   - بۆ جاکێت/کاردیگانەکێ ب نرخێ جیاواز ب پێی تەمەنی، دوماهیکا خەتێ بنڤیسە  ages: true
+        p("images/a.jpg", "ناڤ", "Name", 12000, "outfit", { new: true, ages: true }),
+     ئەنجام: ل پەنجەرا بەرهەمی لیستەکا تەمەنان دیار دبیت و نرخ ب پێی تەمەنی دهێتە دانان.
+             تەمەن و نرخێن وان ل خوارێ ل AGE_TIERS دهێنە گوهۆڕین.
    - هەر خەتەک ب کۆمایەک (,) دوماهی دهێت. ئەگەر کۆما ژبیر بکەی، سایت کار ناکەت.
    ===================================================================== */
 
@@ -59,6 +63,15 @@ const CATEGORIES = {
 };
 
 
+/* ---------- تەمەنان بۆ جاکێت/کاردیگانان (نرخ ب پێی تەمەنی) ---------- */
+/* price: null = نرخ نینە، کەس ب WhatsApp دپرسیت. بۆ گوهۆڕینا نرخان تەنێ ڤان عەدەدان بگوهۆڕە */
+const AGE_TIERS = [
+  { id: "a", ku: "ژ 1 مەهێ هەتا 3 سالی",   en: "1 month – 3 years", price: 12000 },
+  { id: "b", ku: "ژ 4 سالی هەتا 12 سالی",  en: "4 – 12 years",      price: 20000 },
+  { id: "c", ku: "ژ 13 سالی هەتا 30 سالی", en: "13 – 30 years",     price: null  }
+];
+
+
 /* ---------- بەرهەمان: یەک خەت = یەک بەرهەم ---------- */
 /* ئەڤ وێنەیێن Unsplash تەنێ نموونەنە، ب وێنەیێن خۆ بگوهۆڕە (وەکو images/xxx.jpg) */
 const U = "?auto=format&fit=crop&w=800&q=80";
@@ -67,13 +80,13 @@ const UNS = "https://images.unsplash.com/";
 const PRODUCTS = [
   // ---------- بەرهەمێن نوی ----------
   p(["images/red-granny-cardigan-1.webp", "images/red-granny-cardigan-2.webp"],
-    "کاردیگانا چوارگۆشێن سور", "Red Granny Cardigan", 12000, "outfit", { new: true }),
-  p("images/cherry-cardigan-b.webp", "کاردیگانا گیلاس ٢", "Cherry Cardigan 2", 12000, "outfit", { new: true }),
-  p("images/flower-cardigan.webp", "کاردیگانا گوڵ", "Flower Cardigan", 12000, "outfit", { new: true }),
+    "کاردیگانا چوارگۆشێن سور", "Red Granny Cardigan", 12000, "outfit", { new: true, ages: true }),
+  p("images/cherry-cardigan-b.webp", "کاردیگانا گیلاس ٢", "Cherry Cardigan 2", 12000, "outfit", { new: true, ages: true }),
+  p("images/flower-cardigan.webp", "کاردیگانا گوڵ", "Flower Cardigan", 12000, "outfit", { new: true, ages: true }),
 
   // ---------- بەرهەمێ نوی: کاردیگانا گیلاس (3 وێنە) ----------
   p(["images/cherry-cardigan-1.webp", "images/cherry-cardigan-2.webp", "images/cherry-cardigan-3.webp"],
-    "کاردیگانا گیلاس", "Cherry Cardigan", 12000, "outfit", { new: true }),
+    "کاردیگانا گیلاس", "Cherry Cardigan", 12000, "outfit", { new: true, ages: true }),
 
   //  وێنە                                  ناڤێ کوردی          ناڤێ ئینگلیزی     نرخ     جۆر
   p(UNS + "photo-1607604276583-eef5d076aa5f" + U, "مەدالیا نازدار",    "Cute Medali",     15000, "medal"),

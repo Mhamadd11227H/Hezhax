@@ -16,7 +16,7 @@ const products = PRODUCTS;
 
 const T = {
   ku: {
-    cur: "دینار", delivChip: "گەهاندن ژ 3,000 دینارێ دەست پێدکەت", whereLive: "تو ل کوێ دژیت؟", pickCity: "شوێنێ خۆ هەلبژێرە...", delivPick: "شوێنێ خۆ هەلبژێرە بۆ دیارکرنا نرخێ گەهاندنێ", whereShort: "شوێن", devBy: "وێبسایت دیزاین و دروستکرن ژ لایێ", adTitle: "وێبسایتەکێ وەکو ئەڤی دڤێت؟", adText: "من ئەڤ وێبسایتە دروست کر. ئەگەر تە ژی دڤێت، پەیوەندیێ ب من بکە.", adBtn: "نامەکێ فرێکە ",
+    cur: "دینار", delivChip: "گەهاندن ژ 3,000 دینارێ دەست پێدکەت", whereLive: "تو ل کوێ دژیت؟", pickCity: "شوێنێ خۆ هەلبژێرە...", delivPick: "شوێنێ خۆ هەلبژێرە بۆ دیارکرنا نرخێ گەهاندنێ", whereShort: "شوێن", whichAge: "بۆ چ تەمەنی؟", pickAge: "تەمەنی هەلبژێرە...", agePick: "تەمەنی هەلبژێرە بۆ دیارکرنا نرخی", ageLabel: "تەمەن", fromPrice: "ژ", priceAsk: "نرخ ب پرسیارێ", askNote: "ل ڤی تەمەنی نرخ دهێتە گوهۆڕین، ب WhatsApp بپرسە", askBtn: "نرخی ب WhatsApp بپرسە", askMsg: "دڤێت نرخی بزانم", devBy: "وێبسایت دیزاین و دروستکرن ژ لایێ", adTitle: "وێبسایتەکێ وەکو ئەڤی دڤێت؟", adText: "من ئەڤ وێبسایتە دروست کر. ئەگەر تە ژی دڤێت، پەیوەندیێ ب من بکە.", adBtn: "نامەکێ فرێکە ",
     dir: "rtl", btn: "English", order: "داخازبکە ", heroTag: "ب دلۆڤانی هاتییە چنین", tagline: "تشتێن بچویک. هەستێن مەزن.",
     heroText: "کرۆشێیا دەستچن ل دهۆکێ و هەرێما کوردستانێ، ڕاستەوخۆ دگەهیتە دەرگەهێ مالا تە.", shop: "بەرهەمان ببینە",
     collLabel: "کۆمەڵە", collTitle: "بەرهەمێن مە", howLabel: "چاوا داخواز بکەی", howTitle: "سێ هەنگاڤێن ساناهی",
@@ -33,7 +33,7 @@ const T = {
     rights: "© 2026 HEZHA. هەمی مافا دپاراستی نە.", marq: "HEZHA ✦ کرۆشێیا دەستچن ✦ تشتێن بچویک. هەستێن مەزن ✦ ",
   },
   en: {
-    cur: "IQD", delivChip: "Delivery from 3,000 IQD", whereLive: "Where do you live?", pickCity: "Choose your location...", delivPick: "Choose your location to see the delivery price", whereShort: "Location", devBy: "Website designed & developed by", adTitle: "Want a website like this?", adText: "I built this site. Let's make one for you too.", adBtn: "Let's talk",
+    cur: "IQD", delivChip: "Delivery from 3,000 IQD", whereLive: "Where do you live?", pickCity: "Choose your location...", delivPick: "Choose your location to see the delivery price", whereShort: "Location", whichAge: "For which age?", pickAge: "Choose age...", agePick: "Choose an age to see the price", ageLabel: "Age", fromPrice: "From", priceAsk: "Ask for price", askNote: "Price changes at this age, please ask on WhatsApp", askBtn: "Ask price on WhatsApp", askMsg: "I'd like to know the price", devBy: "Website designed & developed by", adTitle: "Want a website like this?", adText: "I built this site. Let's make one for you too.", adBtn: "Let's talk",
     dir: "ltr", btn: "کوردی", order: "Order", heroTag: "Crocheted with love", tagline: "Little things. Big feelings.",
     heroText: "Handmade crochet from Duhok, delivered across the Kurdistan Region.", shop: "Shop now",
     collLabel: "Collection", collTitle: "Our crochet", howLabel: "How to order", howTitle: "Three simple steps",
@@ -75,6 +75,13 @@ const byId = Object.fromEntries(products.map(p => [p.id, p]));
 let zone = store.get('hezha_zone');   // selected delivery location
 if (!ZONES[zone]) zone = '';
 const fee = () => (zone ? ZONES[zone].fee : 0);
+let age = '';           // selected age tier id in the popup (for jackets)
+const tierOf = (p, id) => (p.ages ? AGE_TIERS.find(x => x.id === id) || null : null);
+const priceOf = (p, tier) => (tier && tier.price != null ? tier.price : p.price);
+const minAgePrice = () => Math.min(...AGE_TIERS.filter(x => x.price != null).map(x => x.price));
+// cart keys: "productId" or "productId|ageId"
+const parseKey = k => { const i = k.lastIndexOf('|'); return i < 0 ? { pid: k, tid: '' } : { pid: k.slice(0, i), tid: k.slice(i + 1) }; };
+const lineOf = k => { const { pid, tid } = parseKey(k); const p = byId[pid]; if (!p) return null; const tier = tierOf(p, tid); return { p, tier, price: priceOf(p, tier) }; };
 const fmt = n => n.toLocaleString('en-US') + ' ' + T[lang].cur;
 const wa = (text, num = SHOP_WHATSAPP) => `https://wa.me/${num}` + (text ? `?text=${encodeURIComponent(text)}` : '');
 const pname = p => p.name[lang] || p.name.ku;
@@ -123,7 +130,7 @@ function cardHTML(i) {
       <div class="glass">
         <h3>${esc(pname(p))}</h3>
         ${items ? `<small class="items">${esc(items)}</small>` : ''}
-        <div class="row"><b>${fmt(p.price)}</b><span class="go">+</span></div>
+        <div class="row"><b>${p.ages ? t.fromPrice + ' ' + fmt(minAgePrice()) : fmt(p.price)}</b><span class="go">+</span></div>
       </div>
     </button>`;
 }
@@ -176,6 +183,7 @@ function applyLang() {
   renderFilters();
   renderGrid();
   renderZones();
+  renderAges();
   if (openIdx !== null) fillProduct(openIdx);
   renderCart();
   setupReveal();
@@ -232,7 +240,8 @@ function fillProduct(i) {
   showImg(imgIdx);
   $('mCat').textContent = catName(p);
   $('mName').textContent = pname(p);
-  $('mPrice').textContent = fmt(p.price);
+  $('ageBox').hidden = !p.ages;
+  $('mAge').value = age;
   $('mDesc').textContent = descOf(p);
   $('mAdd').textContent = p.soldout ? t.soldTag : t.addCart;
   $('mAdd').disabled = !!p.soldout;
@@ -249,11 +258,20 @@ function fillProduct(i) {
 function updateProductOrder() {
   if (openIdx === null) return;
   const p = products[openIdx], t = T[lang];
-  $('mDeliv').textContent = zone
-    ? `${t.delivLabel}: ${fmt(fee())} · ${t.total}: ${fmt(p.price + fee())}`
-    : t.delivPick;
-  let msg = `${t.orderMsg}:\n🌸 ${pname(p)}\n💰 ${fmt(p.price)}`;
-  if (zone) msg += `\n📍 ${t.whereShort}: ${ZONES[zone][lang]}\n🚚 ${t.delivLabel}: ${fmt(fee())}\n🧾 ${t.total}: ${fmt(p.price + fee())}`;
+  const tier = tierOf(p, age);
+  const ask = !!tier && tier.price == null;      // age with no fixed price: ask on WhatsApp
+  const unit = priceOf(p, tier);
+  $('mPrice').textContent = ask ? t.priceAsk : (p.ages && !tier ? `${t.fromPrice} ${fmt(minAgePrice())}` : fmt(unit));
+  $('mAdd').hidden = ask;
+  $('mOrder').textContent = ask ? t.askBtn : t.orderThis;
+  $('mDeliv').textContent = ask ? t.askNote
+    : (p.ages && !tier) ? t.agePick
+    : zone ? `${t.delivLabel}: ${fmt(fee())} · ${t.total}: ${fmt(unit + fee())}` : t.delivPick;
+  let msg = `${t.orderMsg}:\n🌸 ${pname(p)}`;
+  if (tier) msg += `\n🎂 ${t.ageLabel}: ${tier[lang]}`;
+  msg += ask ? `\n❓ ${t.askMsg}` : `\n💰 ${fmt(unit)}`;
+  if (zone) msg += `\n📍 ${t.whereShort}: ${ZONES[zone][lang]}`;
+  if (zone && !ask) msg += `\n🚚 ${t.delivLabel}: ${fmt(fee())}\n🧾 ${t.total}: ${fmt(unit + fee())}`;
   $('mOrder').href = wa(msg);
 }
 
@@ -278,6 +296,7 @@ const photoCount = () => (openIdx === null ? 0 : (products[openIdx].imgs || []).
 function openProduct(i, list) {
   openIdx = i;
   imgIdx = 0;
+  age = '';
   browse = list || visible();
   fillProduct(i);
   openModal('modal');
@@ -290,6 +309,7 @@ function stepProduct(d) {
   if (pos < 0) pos = 0;
   openIdx = v[(pos + d + v.length) % v.length];
   imgIdx = 0;
+  age = '';
   fillProduct(openIdx);
 }
 
@@ -329,17 +349,36 @@ function setZone(v) {
 }
 
 // if no location is chosen yet, don't open WhatsApp: shake the selector instead
+function shakeEl(id) {
+  const s = $(id);
+  s.classList.remove('shake'); void s.offsetWidth; s.classList.add('shake');
+  s.focus();
+}
 function needZone(e, selId) {
   if (zone) return;
   e.preventDefault();
-  const s = $(selId);
-  s.classList.remove('shake'); void s.offsetWidth; s.classList.add('shake');
-  s.focus();
+  shakeEl(selId);
+}
+// popup order button: jackets need an age first; an age with no fixed price just asks, no location needed
+function guardOrder(e) {
+  if (openIdx === null) return;
+  const p = products[openIdx], tier = tierOf(p, age);
+  if (p.ages && !tier) { e.preventDefault(); shakeEl('mAge'); return; }
+  if (tier && tier.price == null) return;
+  needZone(e, 'mZone');
+}
+
+function renderAges() {
+  const t = T[lang];
+  $('mAge').innerHTML = `<option value="">${t.pickAge}</option>` +
+    AGE_TIERS.map(x => `<option value="${x.id}">${x[lang]} — ${x.price != null ? fmt(x.price) : t.priceAsk}</option>`).join('');
+  $('mAge').value = age;
 }
 
 $('mZone').addEventListener('change', e => setZone(e.target.value));
 $('cartZone').addEventListener('change', e => setZone(e.target.value));
-$('mOrder').addEventListener('click', e => needZone(e, 'mZone'));
+$('mOrder').addEventListener('click', guardOrder);
+$('mAge').addEventListener('change', e => { age = AGE_TIERS.some(x => x.id === e.target.value) ? e.target.value : ''; updateProductOrder(); });
 $('cartOrder').addEventListener('click', e => needZone(e, 'cartZone'));
 
 /* ===== cart ===== */
@@ -349,7 +388,14 @@ function addCurrent() {
   if (openIdx === null) return;
   const p = products[openIdx];
   if (p.soldout) return;
-  cart[p.id] = (cart[p.id] || 0) + 1;
+  let key = p.id;
+  if (p.ages) {
+    const tier = tierOf(p, age);
+    if (!tier) { shakeEl('mAge'); return; }
+    if (tier.price == null) return;
+    key = p.id + '|' + tier.id;
+  }
+  cart[key] = (cart[key] || 0) + 1;
   saveCart();
   renderCart();
   const b = $('mAdd');
@@ -376,7 +422,7 @@ $('cartItems').addEventListener('click', e => {
 
 function renderCart() {
   const t = T[lang];
-  const ids = Object.keys(cart).filter(id => byId[id] && cart[id] > 0);
+  const ids = Object.keys(cart).filter(id => lineOf(id) && cart[id] > 0);
   const count = ids.reduce((s, id) => s + cart[id], 0);
   $('cartCount').textContent = count;
   $('cartCount').hidden = !count;
@@ -388,11 +434,11 @@ function renderCart() {
   }
 
   $('cartItems').innerHTML = ids.map(id => {
-    const p = byId[id];
+    const L = lineOf(id), p = L.p;
     return `
     <div class="cart-item">
       <div class="thumb" style="background-image:url('${src(p.img)}')"></div>
-      <div class="info"><b>${esc(pname(p))}</b><span>${fmt(p.price * cart[id])}</span></div>
+      <div class="info"><b>${esc(pname(p) + (L.tier ? ' · ' + L.tier[lang] : ''))}</b><span>${fmt(L.price * cart[id])}</span></div>
       <div class="qty">
         <button data-id="${esc(id)}" data-d="-1" aria-label="−">−</button>
         <span>${cart[id]}</span>
@@ -401,14 +447,14 @@ function renderCart() {
     </div>`;
   }).join('');
 
-  const sub = ids.reduce((s, id) => s + byId[id].price * cart[id], 0);
+  const sub = ids.reduce((s, id) => s + lineOf(id).price * cart[id], 0);
   const tot = sub + fee();
   $('sumSub').textContent = fmt(sub);
   $('sumDel').textContent = zone ? fmt(fee()) : '—';
   $('sumTot').textContent = fmt(tot);
   $('cartFoot').hidden = false;
 
-  const lines = ids.map(id => `🌸 ${pname(byId[id])} × ${cart[id]} — ${fmt(byId[id].price * cart[id])}`).join('\n');
+  const lines = ids.map(id => { const L = lineOf(id); return `🌸 ${pname(L.p)}${L.tier ? ' (' + L.tier[lang] + ')' : ''} × ${cart[id]} — ${fmt(L.price * cart[id])}`; }).join('\n');
   $('cartOrder').href = wa(`${t.orderMsg}:\n${lines}\n\n🧾 ${t.subtotal}: ${fmt(sub)}\n📍 ${t.whereShort}: ${zone ? ZONES[zone][lang] : '—'}\n🚚 ${t.delivLabel}: ${fmt(fee())}\n💰 ${t.total}: ${fmt(tot)}`);
 }
 

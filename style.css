@@ -294,3 +294,6 @@ html[dir=ltr] .zone-select{background-position:right 16px center}
 .zone-select.shake{animation:shake .45s}
 @keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
 .cart-foot .zone-box{margin:0 0 8px}
+
+/* ===== v10: hidden fix + age select ===== */
+[hidden]{display:none!important}
