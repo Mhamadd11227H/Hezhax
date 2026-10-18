@@ -34,6 +34,17 @@
    - وەسفەکێ تایبەت بۆ بەرهەمەکێ:
         p("images/a.jpg", "ناڤ", "Name", 10000, "hat",
           { desc: { ku: "وەسفا کوردی", en: "English text" } }),
+   - چەند وێنە بۆ یەک بەرهەمی (پێش، پاش، لایەک...): ب جهێ یەک وێنەی، لیستەکا وێنەیان
+     ل ناڤ [ ] بنڤیسە. وێنەیا یەکەم ل کارتی دیار دبیت:
+        p(["images/cardigan-front.jpg", "images/cardigan-back.jpg", "images/cardigan-side.jpg"],
+          "کاردیگانا پەمبەیی", "Pink Cardigan", 50000, "outfit"),
+     ئەنجام: ل کارتی وێنەیا یەکەم دیار دبیت. دەمێ کەسەک کارتی ڤەکەت، ل ژێر وێنەی
+             3 وێنەیێن بچووک دیار دبن و ب swipe یان کلیکێ دکارێ وێنەیێن دی ببینیت.
+   - بۆ سێتەکێ: جۆر بکە "set" و ل دوماهیکێ بنڤیسە چ تێدایە (items):
+        p("images/winter-set.jpg", "سێتا زڤستانێ", "Winter Set", 47000, "set",
+          { items: { ku: "کلاو + ملپێچ", en: "Hat + Scarf" } }),
+     ئەنجام: ل بەشێ "سێتێن تایبەت" کارتەکا نوی دهێتە دەرکەفتن، و ل ژێر ناڤی
+             "کلاو + ملپێچ" دیار دبیت (ل پەنجەرا بەرهەمی ژی: "ناڤەرۆک: کلاو + ملپێچ").
    - هەر خەتەک ب کۆمایەک (,) دوماهی دهێت. ئەگەر کۆما ژبیر بکەی، سایت کار ناکەت.
    ===================================================================== */
 
@@ -43,6 +54,7 @@ const CATEGORIES = {
   medal:  { ku: "مەدالی",   en: "Keychain", descKu: "مەدالییەکا نازدار ب کرۆشێ هاتییە چنین، بۆ کلیلان و چانتایان.", descEn: "A cute crochet keychain for keys and bags." },
   scarf:  { ku: "ملپێچ",    en: "Scarf",    descKu: "ملپێچەکا گەرم و نەرم، ب دەست هاتییە چنین.",                   descEn: "A warm, soft scarf made by hand." },
   hat:    { ku: "کلاو",     en: "Hat",      descKu: "کلاوەکێ کرۆشێ یێ گەرم و جوان.",                                descEn: "A warm and pretty crochet hat." },
+  set:    { ku: "سێت",      en: "Set",      descKu: "سێتەکا تەمام ب دەست هاتییە چنین، بۆ دیاریێ ژی گەلەک باشە.", descEn: "A complete handmade set, perfect as a gift." },
   outfit: { ku: "جل و بەرگ", en: "Clothing", descKu: "جلوبەرگەکێ ب دەست هاتییە چنین.",                              descEn: "A handmade crochet outfit." }
 };
 
@@ -53,6 +65,10 @@ const U = "?auto=format&fit=crop&w=800&q=80";
 const UNS = "https://images.unsplash.com/";
 
 const PRODUCTS = [
+  // ---------- بەرهەمێ نوی: کاردیگانا گیلاس (3 وێنە) ----------
+  p(["images/cherry-cardigan-1.webp", "images/cherry-cardigan-2.webp", "images/cherry-cardigan-3.webp"],
+    "چاکیتێ گێلاسێ", "Cherry Cardigan", 12000, "outfit", { new: true }),
+
   //  وێنە                                  ناڤێ کوردی          ناڤێ ئینگلیزی     نرخ     جۆر
   p(UNS + "photo-1607604276583-eef5d076aa5f" + U, "مەدالیا نازدار",    "Cute Medali",     15000, "medal"),
   p(UNS + "photo-1615485290382-441e4d049cb5" + U, "مەدالیا گوڵ",       "Flower Medali",   12000, "medal"),
@@ -63,11 +79,17 @@ const PRODUCTS = [
   p(UNS + "photo-1584992236310-6edddc08acff" + U, "جلوبەرگێ دەستچن",   "Handmade Outfit", 45000, "outfit"),
   p(UNS + "photo-1596704017254-9b121068fb31" + U, "کاردیگانا پەمبەیی", "Pink Cardigan",   50000, "outfit"),
 
+  // ---------- سێت (SETS): جۆر "set" ----------
+  // ئەڤ دوو سێتە نموونەنە (نرخ = کۆمێ دوو پارچەیان). وێنە و نرخ و ناڤان ب یێن خۆ بگوهۆڕە یان ڤان دوو خەتان لابە.
+  p(UNS + "photo-1520903920243-00d872a2d1c9" + U, "سێتا زڤستانێ", "Winter Set", 47000, "set", { items: { ku: "کلاو + ملپێچ", en: "Hat + Scarf" } }),
+  p(UNS + "photo-1608256246200-53e635b5b65f" + U, "سێتا ڕۆز",     "Rose Set",   48000, "set", { items: { ku: "کلاو + ملپێچ", en: "Hat + Scarf" } }),
+
   //  ↓ بەرهەمێن نوی ل ڤێرە زێدە بکە (لەپاش دوماهیکا خەتێ، بەری ] )
 ];
 
 
 /* ---------- (ئەڤە دەست لێ نەدە) فەنکشنا چێکرنا بەرهەمان ---------- */
 function p(img, ku, en, price, cat, extra) {
-  return Object.assign({ id: img + "#" + ku, img: img, name: { ku: ku, en: en || ku }, price: price, cat: cat }, extra || {});
+  const imgs = Array.isArray(img) ? img : [img];   // یەک وێنە یان لیستەکا وێنەیان
+  return Object.assign({ id: imgs[0] + "#" + ku, img: imgs[0], imgs: imgs, name: { ku: ku, en: en || ku }, price: price, cat: cat }, extra || {});
 }
