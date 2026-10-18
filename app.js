@@ -1,22 +1,30 @@
 /* ===== HEZHA settings ===== */
 const SHOP_WHATSAPP = "9647510130527";
 const DEV_WHATSAPP = "9647508863907";
-const DELIVERY = 3000;
+/* نرخێ گەهاندنێ ب پێی شوێنی (بۆ گوهۆڕینا نرخان تەنێ ڤان عەدەدان بگوهۆڕە) */
+const ZONES = {
+  duhok:     { fee: 3000, ku: "دهۆک",         en: "Duhok" },
+  zakho:     { fee: 3000, ku: "زاخۆ",         en: "Zakho" },
+  akre:      { fee: 4000, ku: "ئاکرێ",        en: "Akre" },
+  erbil:     { fee: 5000, ku: "هەولێر",       en: "Erbil" },
+  sulaimani: { fee: 5000, ku: "سلێمانی",      en: "Sulaymaniyah" },
+  other:     { fee: 5000, ku: "پارێزگێن دی",  en: "Other provinces" }
+};
 
 /* products come from products.js */
 const products = PRODUCTS;
 
 const T = {
   ku: {
-    cur: "دینار", delivChip: "گەهاندن بۆ هەمی دهۆکێ: 3,000 دینار", devBy: "وێبسایت دیزاین و دروستکرن ژ لایێ", adTitle: "وێبسایتەکێ وەکو ئەڤی دڤێت؟", adText: "من ئەڤ وێبسایتە دروست کر. ئەگەر تە ژی دڤێت، پەیوەندیێ ب من بکە.", adBtn: "نامەکێ فرێکە ",
+    cur: "دینار", delivChip: "گەهاندن ژ 3,000 دینارێ دەست پێدکەت", whereLive: "تو ل کوێ دژیت؟", pickCity: "شوێنێ خۆ هەلبژێرە...", delivPick: "شوێنێ خۆ هەلبژێرە بۆ دیارکرنا نرخێ گەهاندنێ", whereShort: "شوێن", devBy: "وێبسایت دیزاین و دروستکرن ژ لایێ", adTitle: "وێبسایتەکێ وەکو ئەڤی دڤێت؟", adText: "من ئەڤ وێبسایتە دروست کر. ئەگەر تە ژی دڤێت، پەیوەندیێ ب من بکە.", adBtn: "نامەکێ فرێکە ",
     dir: "rtl", btn: "English", order: "داخازبکە ", heroTag: "ب دلۆڤانی هاتییە چنین", tagline: "تشتێن بچویک. هەستێن مەزن.",
     heroText: "کرۆشێیا دەستچن ل دهۆکێ و هەرێما کوردستانێ، ڕاستەوخۆ دگەهیتە دەرگەهێ مالا تە.", shop: "بەرهەمان ببینە",
     collLabel: "کۆمەڵە", collTitle: "بەرهەمێن مە", howLabel: "چاوا داخواز بکەی", howTitle: "سێ هەنگاڤێن ساناهی",
     s1t: "هەلبژێرە", s1d: "بەرهەمەکی ڤەکە و هەمی وردەکاریان ببینە.", s2t: "داخواز بکە", s2d: "ب ئک کلیک، داخوازیا تە ل WhatsApp بۆ مە دهێتە فرێکرن.",
-    s3t: "دگەهیتە دەست", s3d: "گەهاندن بۆ دهۆکێ هەمی 3,000 دینار، ڕاستەوخۆ بۆ دەرگەهێ تە.",
+    s3t: "دگەهیتە دەست", s3d: "دهۆک و زاخۆ 3,000، ئاکرێ 4,000، و پارێزگێن دی 5,000 دینار، ڕاستەوخۆ بۆ دەرگەهێ تە.",
     aboutLabel: "دەربارەی مە", aboutTitle: "ب دەستێن دلۆڤان، تا دەرگەهێ تە",
     aboutText: "HEZHA فرۆشگەهەکا ئۆنلاینە بۆ کارێن دەستچن یێن کرۆشێ: مەدالی، ملپێچ، کولاف و جلوبەرگ. هەر پارچەیەک ب دەست و ب دلۆڤانی هاتییە چنین.",
-    f1t: "کوالێتییا بلند", f1d: "ب ووردبینی هاتینە چنین.", f2t: "خزمەتا تایبەت", f2d: "ل WhatsApp هاریکاریا تە دکەین.", f3t: "گەهاندن", f3d: "دهوک هەمی : 3,000 دینار.",
+    f1t: "کوالێتییا بلند", f1d: "ب ووردبینی هاتینە چنین.", f2t: "خزمەتا تایبەت", f2d: "ل WhatsApp هاریکاریا تە دکەین.", f3t: "گەهاندن", f3d: "ژ 3,000 دینارێ دەست پێدکەت.",
     followLabel: "دووڤچوون", followTitle: "ل سۆشیالمیدیایێ دگەل مە بە", followText: "بەرهەمێن نوی و وێنەیێن چنینێ ل ئینستاگرام و تیکتۆکێ ببینە.", followBtn: "دیفچون",
     contactLabel: "پەیوەندی", contactTitle: "دیاریا تایبەت ببینە", contactText: "نامەکێ بۆ مە فرێکە و ئەم دێ هاریکاریا تە کەین.", chat: "گفتوگۆ ل WhatsApp",
     orderThis: "داخواز ب WhatsApp", addCart: "بۆ سەبەتێ زێدە بکە", added: "زێدە بوو ✓",
@@ -25,15 +33,15 @@ const T = {
     rights: "© 2026 HEZHA. هەمی مافا دپاراستی نە.", marq: "HEZHA ✦ کرۆشێیا دەستچن ✦ تشتێن بچویک. هەستێن مەزن ✦ ",
   },
   en: {
-    cur: "IQD", delivChip: "Duhok delivery: 3,000 IQD", devBy: "Website designed & developed by", adTitle: "Want a website like this?", adText: "I built this site. Let's make one for you too.", adBtn: "Let's talk",
+    cur: "IQD", delivChip: "Delivery from 3,000 IQD", whereLive: "Where do you live?", pickCity: "Choose your location...", delivPick: "Choose your location to see the delivery price", whereShort: "Location", devBy: "Website designed & developed by", adTitle: "Want a website like this?", adText: "I built this site. Let's make one for you too.", adBtn: "Let's talk",
     dir: "ltr", btn: "کوردی", order: "Order", heroTag: "Crocheted with love", tagline: "Little things. Big feelings.",
     heroText: "Handmade crochet from Duhok, delivered across the Kurdistan Region.", shop: "Shop now",
     collLabel: "Collection", collTitle: "Our crochet", howLabel: "How to order", howTitle: "Three simple steps",
     s1t: "Pick", s1d: "Open an item and see every detail.", s2t: "Order", s2d: "One tap sends it to us on WhatsApp.",
-    s3t: "Delivered", s3d: "Anywhere in Duhok for 3,000 IQD, straight to your door.",
+    s3t: "Delivered", s3d: "Duhok & Zakho 3,000 IQD, Akre 4,000, other provinces 5,000, straight to your door.",
     aboutLabel: "About us", aboutTitle: "Handmade, at your doorstep",
     aboutText: "HEZHA is an online store for handmade crochet: keychains, scarves, hats and clothing. Every piece is made by hand with love.",
-    f1t: "Premium quality", f1d: "Made with care.", f2t: "Personal service", f2d: "Help on WhatsApp.", f3t: "Delivery", f3d: "Duhok delivery: 3,000 IQD.",
+    f1t: "Premium quality", f1d: "Made with care.", f2t: "Personal service", f2d: "Help on WhatsApp.", f3t: "Delivery", f3d: "Starting from 3,000 IQD.",
     followLabel: "Follow us", followTitle: "Join us on social media", followText: "See new pieces and behind-the-scenes crochet on Instagram and TikTok.", followBtn: "Follow",
     contactLabel: "Contact", contactTitle: "Find your perfect piece", contactText: "Message us and we'll help you choose.", chat: "Chat on WhatsApp",
     orderThis: "Order on WhatsApp", addCart: "Add to cart", added: "Added ✓",
@@ -64,6 +72,9 @@ let cart = {};          // { productId: quantity }
 try { cart = JSON.parse(store.get('hezha_cart') || '{}') || {}; } catch (e) { cart = {}; }
 
 const byId = Object.fromEntries(products.map(p => [p.id, p]));
+let zone = store.get('hezha_zone');   // selected delivery location
+if (!ZONES[zone]) zone = '';
+const fee = () => (zone ? ZONES[zone].fee : 0);
 const fmt = n => n.toLocaleString('en-US') + ' ' + T[lang].cur;
 const wa = (text, num = SHOP_WHATSAPP) => `https://wa.me/${num}` + (text ? `?text=${encodeURIComponent(text)}` : '');
 const pname = p => p.name[lang] || p.name.ku;
@@ -164,6 +175,7 @@ function applyLang() {
   $('marquee').innerHTML = `<span>${t.marq.repeat(4)}</span><span>${t.marq.repeat(4)}</span>`;
   renderFilters();
   renderGrid();
+  renderZones();
   if (openIdx !== null) fillProduct(openIdx);
   renderCart();
   setupReveal();
@@ -193,7 +205,7 @@ function closeModal(id) {
 
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeProduct(); closeCart(); return; }
-  if ((e.key === 'ArrowLeft' || e.key === 'ArrowRight') && !$('modal').hidden) {
+  if ((e.key === 'ArrowLeft' || e.key === 'ArrowRight') && !$('modal').hidden && e.target.tagName !== 'SELECT') {
     const d = e.key === 'ArrowRight' ? 1 : -1;
     const dd = document.documentElement.dir === 'rtl' ? -d : d;
     if (photoCount() > 1) showImg(imgIdx + dd); else stepProduct(dd);
@@ -202,7 +214,7 @@ document.addEventListener('keydown', e => {
   if (e.key !== 'Tab') return;
   const m = [$('modal'), $('cartModal')].find(x => !x.hidden);
   if (!m) return;
-  const f = [...m.querySelectorAll('button,a[href],[tabindex]:not([tabindex="-1"])')].filter(x => x.offsetParent !== null && !x.disabled);
+  const f = [...m.querySelectorAll('button,select,a[href],[tabindex]:not([tabindex="-1"])')].filter(x => x.offsetParent !== null && !x.disabled);
   if (!f.length) return;
   const first = f[0], last = f[f.length - 1];
   if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
@@ -221,18 +233,28 @@ function fillProduct(i) {
   $('mCat').textContent = catName(p);
   $('mName').textContent = pname(p);
   $('mPrice').textContent = fmt(p.price);
-  $('mDeliv').textContent = t.delivChip;
   $('mDesc').textContent = descOf(p);
   $('mAdd').textContent = p.soldout ? t.soldTag : t.addCart;
   $('mAdd').disabled = !!p.soldout;
   $('mOrder').hidden = !!p.soldout;
-  $('mOrder').href = wa(`${t.orderMsg}:\n🌸 ${pname(p)}\n💰 ${fmt(p.price)}\n🚚 ${t.delivChip}`);
+  updateProductOrder();
   const items = p.items ? (p.items[lang] || p.items.ku) : '';
   $('mItems').hidden = !items;
   $('mItems').textContent = items ? `${t.includes}: ${items}` : '';
   const many = browse.length > 1;
   $('mPrev').hidden = !many;
   $('mNext').hidden = !many;
+}
+
+function updateProductOrder() {
+  if (openIdx === null) return;
+  const p = products[openIdx], t = T[lang];
+  $('mDeliv').textContent = zone
+    ? `${t.delivLabel}: ${fmt(fee())} · ${t.total}: ${fmt(p.price + fee())}`
+    : t.delivPick;
+  let msg = `${t.orderMsg}:\n🌸 ${pname(p)}\n💰 ${fmt(p.price)}`;
+  if (zone) msg += `\n📍 ${t.whereShort}: ${ZONES[zone][lang]}\n🚚 ${t.delivLabel}: ${fmt(fee())}\n🧾 ${t.total}: ${fmt(p.price + fee())}`;
+  $('mOrder').href = wa(msg);
 }
 
 function showImg(n) {
@@ -289,6 +311,36 @@ $('mImg').addEventListener('touchend', e => {
   const dd = dx < 0 ? (rtl ? -1 : 1) : (rtl ? 1 : -1);
   if (photoCount() > 1) showImg(imgIdx + dd); else stepProduct(dd);
 }, { passive: true });
+
+/* ===== delivery location ===== */
+function renderZones() {
+  const t = T[lang];
+  const html = `<option value="">${t.pickCity}</option>` +
+    Object.keys(ZONES).map(k => `<option value="${k}">${ZONES[k][lang]} — ${fmt(ZONES[k].fee)}</option>`).join('');
+  ['mZone', 'cartZone'].forEach(id => { $(id).innerHTML = html; $(id).value = zone; });
+}
+
+function setZone(v) {
+  zone = ZONES[v] ? v : '';
+  store.set('hezha_zone', zone);
+  renderZones();
+  updateProductOrder();
+  renderCart();
+}
+
+// if no location is chosen yet, don't open WhatsApp: shake the selector instead
+function needZone(e, selId) {
+  if (zone) return;
+  e.preventDefault();
+  const s = $(selId);
+  s.classList.remove('shake'); void s.offsetWidth; s.classList.add('shake');
+  s.focus();
+}
+
+$('mZone').addEventListener('change', e => setZone(e.target.value));
+$('cartZone').addEventListener('change', e => setZone(e.target.value));
+$('mOrder').addEventListener('click', e => needZone(e, 'mZone'));
+$('cartOrder').addEventListener('click', e => needZone(e, 'cartZone'));
 
 /* ===== cart ===== */
 function saveCart() { store.set('hezha_cart', JSON.stringify(cart)); }
@@ -350,14 +402,14 @@ function renderCart() {
   }).join('');
 
   const sub = ids.reduce((s, id) => s + byId[id].price * cart[id], 0);
-  const tot = sub + DELIVERY;
+  const tot = sub + fee();
   $('sumSub').textContent = fmt(sub);
-  $('sumDel').textContent = fmt(DELIVERY);
+  $('sumDel').textContent = zone ? fmt(fee()) : '—';
   $('sumTot').textContent = fmt(tot);
   $('cartFoot').hidden = false;
 
   const lines = ids.map(id => `🌸 ${pname(byId[id])} × ${cart[id]} — ${fmt(byId[id].price * cart[id])}`).join('\n');
-  $('cartOrder').href = wa(`${t.orderMsg}:\n${lines}\n\n🧾 ${t.subtotal}: ${fmt(sub)}\n🚚 ${t.delivLabel}: ${fmt(DELIVERY)}\n💰 ${t.total}: ${fmt(tot)}`);
+  $('cartOrder').href = wa(`${t.orderMsg}:\n${lines}\n\n🧾 ${t.subtotal}: ${fmt(sub)}\n📍 ${t.whereShort}: ${zone ? ZONES[zone][lang] : '—'}\n🚚 ${t.delivLabel}: ${fmt(fee())}\n💰 ${t.total}: ${fmt(tot)}`);
 }
 
 function openCart() { openModal('cartModal'); }

@@ -284,3 +284,13 @@ html[dir=rtl] .nav-btn.next svg{transform:none}
 .card.noimg .pic::before{content:"✿";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:56px;color:var(--rose);opacity:.5}
 /* popup photo: show more of the picture */
 .sheet-img{aspect-ratio:3/4;max-height:62vh}
+
+/* ===== v9: delivery location ===== */
+.zone-box{align-self:stretch;width:100%;display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.zone-box>span{font-weight:700;font-size:14px;color:var(--ink)}
+.zone-select{width:100%;appearance:none;-webkit-appearance:none;font-family:inherit;font-size:15px;font-weight:700;color:var(--ink);background-color:var(--glass);border:1.5px solid var(--rose);border-radius:99px;padding:12px 18px;padding-inline-end:46px;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23EF5A8C' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-size:18px;background-position:left 16px center}
+html[dir=ltr] .zone-select{background-position:right 16px center}
+.zone-select option{color:#2A1633;background:#fff}
+.zone-select.shake{animation:shake .45s}
+@keyframes shake{20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+.cart-foot .zone-box{margin:0 0 8px}
