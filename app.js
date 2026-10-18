@@ -141,7 +141,7 @@ function applyLang() {
   const t = T[lang];
   document.documentElement.lang = lang === 'ku' ? 'ku' : 'en';
   document.documentElement.dir = t.dir;
-  document.querySelectorAll('[data-i18n]').forEach(el => el.textContent = t[el.dataset.i18n]);
+  document.querySelectorAll('[data-i18n]').forEach(el => { if (t[el.dataset.i18n] !== undefined) el.textContent = t[el.dataset.i18n]; });
   $('langBtn').textContent = t.btn;
   $('cartBtn').setAttribute('aria-label', t.cartTitle);
   $('mPrev').setAttribute('aria-label', t.prev);
@@ -321,7 +321,7 @@ function renderCart() {
 function openCart() { openModal('cartModal'); }
 function closeCart() { if (!$('cartModal').hidden) closeModal('cartModal'); }
 
-/* ===== theme (saved choice, otherwise follows the device) ===== */
+/* ===== theme (light by default, visitor can switch to dark) ===== */
 function setTheme(dark) {
   document.body.classList.toggle('dark-mode', dark);
   $('themeBtn').textContent = dark ? '☀️' : '🌙';
@@ -331,10 +331,8 @@ function toggleTheme() {
   setTheme(dark);
   store.set('hezha_theme', dark ? 'dark' : 'light');
 }
-const mq = window.matchMedia ? matchMedia('(prefers-color-scheme: dark)') : null;
-const savedTheme = store.get('hezha_theme');
-setTheme(savedTheme ? savedTheme === 'dark' : !!(mq && mq.matches));
-if (mq && mq.addEventListener) mq.addEventListener('change', e => { if (!store.get('hezha_theme')) setTheme(e.matches); });
+// default is always LIGHT; dark only if the visitor chose it with the 🌙 button
+setTheme(store.get('hezha_theme') === 'dark');
 
 /* ===== init ===== */
 ['orderLink', 'heroWa', 'contactWa'].forEach(id => $(id).href = wa());
