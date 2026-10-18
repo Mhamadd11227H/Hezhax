@@ -61,6 +61,13 @@
     <div class="grid" id="grid"></div>
   </section>
 
+  <section class="block sets" id="sets" hidden>
+    <p class="label" data-i18n="setsLabel"></p>
+    <h2 data-i18n="setsTitle"></h2>
+    <p class="lead" data-i18n="setsText"></p>
+    <div class="grid" id="setGrid"></div>
+  </section>
+
   <section class="block soft" id="how">
     <p class="label" data-i18n="howLabel"></p>
     <h2 data-i18n="howTitle"></h2>
@@ -123,6 +130,7 @@
       <a class="btn-glass" href="tel:+9647508863907" dir="ltr">0750 886 3907</a>
     </div>
   </section>
+  <p class="visits" id="visits" hidden><i class="dot"></i><b id="visitNum"></b> <span data-i18n="visitsLabel"></span></p>
   <span data-i18n="rights"></span>
 </footer>
 
@@ -132,14 +140,17 @@
     <button class="close" onclick="closeProduct()" aria-label="Close">✕</button>
     <div class="sheet-img" id="mImg">
       <img id="mImgTag" alt="">
+      <div class="dots" id="mDots"></div>
       <button class="nav-btn prev" id="mPrev" onclick="stepProduct(-1)"><svg class="ico" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
       <button class="nav-btn next" id="mNext" onclick="stepProduct(1)"><svg class="ico" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
     </div>
+    <div class="thumbs" id="mThumbs" hidden></div>
     <div class="sheet-body">
       <span class="card-cat" id="mCat"></span>
       <h3 id="mName"></h3>
       <div class="card-meta"><b id="mPrice"></b></div>
       <p id="mDesc"></p>
+      <p class="set-items" id="mItems" hidden></p>
       <p class="deliv-chip" id="mDeliv"></p>
       <div class="actions">
         <button class="btn-pink" id="mAdd" onclick="addCurrent()"></button>

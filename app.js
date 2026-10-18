@@ -21,7 +21,7 @@ const T = {
     contactLabel: "پەیوەندی", contactTitle: "دیاریا تایبەت ببینە", contactText: "نامەکێ بۆ مە فرێکە و ئەم دێ هاریکاریا تە کەین.", chat: "گفتوگۆ ل WhatsApp",
     orderThis: "داخواز ب WhatsApp", addCart: "بۆ سەبەتێ زێدە بکە", added: "زێدە بوو ✓",
     cartTitle: "سەبەتا من", cartEmpty: "سەبەتا تە ڤالایە. چەند بەرهەمەکان زێدە بکە.", subtotal: "کوژمێ بەرهەمان", delivLabel: "گەهاندن", total: "کوژمێ گشتی",
-    sendOrder: "داخوازیێ ب WhatsApp فرێکە", clear: "سەبەتێ ڤالا بکە", orderMsg: "داخوازیا HEZHA", all: "هەمی", newTag: "نوی", soldTag: "تەمام بوو", prev: "یێ بەری", next: "یێ پشتی",
+    sendOrder: "داخوازیێ ب WhatsApp فرێکە", clear: "سەبەتێ ڤالا بکە", orderMsg: "داخوازیا HEZHA", all: "هەمی", setsLabel: "سێت", setsTitle: "سێتێن تایبەت", setsText: "چەند پارچە ل یەک سێتێ، ئامادە بۆ دیاریێ.", includes: "ناڤەرۆک", newTag: "نوی", soldTag: "تەمام بوو", prev: "یێ بەری", next: "یێ پشتی",
     rights: "© 2026 HEZHA. هەمی مافا دپاراستی نە.", marq: "HEZHA ✦ کرۆشێیا دەستچن ✦ تشتێن بچویک. هەستێن مەزن ✦ ",
   },
   en: {
@@ -38,7 +38,7 @@ const T = {
     contactLabel: "Contact", contactTitle: "Find your perfect piece", contactText: "Message us and we'll help you choose.", chat: "Chat on WhatsApp",
     orderThis: "Order on WhatsApp", addCart: "Add to cart", added: "Added ✓",
     cartTitle: "My cart", cartEmpty: "Your cart is empty. Add a few pieces you like.", subtotal: "Subtotal", delivLabel: "Delivery", total: "Total",
-    sendOrder: "Send order on WhatsApp", clear: "Clear cart", orderMsg: "HEZHA Order", all: "All", newTag: "New", soldTag: "Sold out", prev: "Previous", next: "Next",
+    sendOrder: "Send order on WhatsApp", clear: "Clear cart", orderMsg: "HEZHA Order", all: "All", setsLabel: "Sets", setsTitle: "Special sets", setsText: "Several pieces in one set, ready to gift.", includes: "Includes", newTag: "New", soldTag: "Sold out", prev: "Previous", next: "Next",
     rights: "© 2026 HEZHA. All rights reserved.", marq: "HEZHA ✦ Handmade crochet ✦ Little things. Big feelings. ✦ ",
   }
 };
@@ -54,6 +54,8 @@ const src = s => (s.includes('%') ? s : encodeURI(s)).replace(/'/g, '%27');
 
 let lang = store.get('hezha_lang');
 if (!T[lang]) lang = 'ku';
+let browse = [];       // list of product indexes the popup can step through
+let imgIdx = 0;         // which photo of the product is shown
 let openIdx = null;     // index of the product shown in the popup
 let filter = 'all';     // selected category
 let lastFocus = null;
@@ -68,7 +70,8 @@ const pname = p => p.name[lang] || p.name.ku;
 const cat = p => CATEGORIES[p.cat] || {};
 const catName = p => cat(p)[lang] || cat(p).ku || '';
 const descOf = p => (p.desc && (p.desc[lang] || p.desc.ku)) || (lang === 'ku' ? cat(p).descKu : cat(p).descEn) || '';
-const visible = () => products.map((p, i) => i).filter(i => filter === 'all' || products[i].cat === filter);
+const setIdx = () => products.map((p, i) => i).filter(i => products[i].cat === 'set');
+const visible = () => products.map((p, i) => i).filter(i => products[i].cat !== 'set' && (filter === 'all' || products[i].cat === filter));
 
 /* ===== scroll reveal (defined before first render) ===== */
 const revealIO = new IntersectionObserver((es, o) => es.forEach(e => {
@@ -88,18 +91,17 @@ function setupReveal() {
 /* ===== gallery: filters + cards ===== */
 function renderFilters() {
   const t = T[lang];
-  const used = [...new Set(products.map(p => p.cat))].filter(c => CATEGORIES[c]);
+  const used = [...new Set(products.map(p => p.cat))].filter(c => CATEGORIES[c] && c !== 'set');
   if (used.length < 2) { $('filters').innerHTML = ''; return; }
   $('filters').innerHTML =
     `<button class="fchip${filter === 'all' ? ' on' : ''}" data-f="all">${t.all}</button>` +
     used.map(c => `<button class="fchip${filter === c ? ' on' : ''}" data-f="${c}">${CATEGORIES[c][lang] || CATEGORIES[c].ku}</button>`).join('');
 }
 
-function renderGrid() {
-  const t = T[lang];
-  $('grid').innerHTML = visible().map(i => {
-    const p = products[i];
-    return `
+function cardHTML(i) {
+  const t = T[lang], p = products[i];
+  const items = p.items ? (p.items[lang] || p.items.ku) : '';
+  return `
     <button class="card${p.soldout ? ' sold' : ''}" data-i="${i}" aria-label="${esc(pname(p))}">
       <img src="${src(p.img)}" alt="" loading="lazy" decoding="async">
       <span class="card-cat">${catName(p)}</span>
@@ -107,11 +109,18 @@ function renderGrid() {
       ${p.soldout ? `<span class="badge-sold">${t.soldTag}</span>` : ''}
       <div class="glass">
         <h3>${esc(pname(p))}</h3>
+        ${items ? `<small class="items">${esc(items)}</small>` : ''}
         <div class="row"><b>${fmt(p.price)}</b><span class="go">+</span></div>
       </div>
     </button>`;
-  }).join('');
-  $('grid').querySelectorAll('img').forEach(im => { if (im.complete && im.naturalWidth) im.classList.add('ld'); });
+}
+
+function renderGrid() {
+  $('grid').innerHTML = visible().map(cardHTML).join('');
+  const sets = setIdx();
+  $('sets').hidden = !sets.length;
+  $('setGrid').innerHTML = sets.map(cardHTML).join('');
+  document.querySelectorAll('#grid img,#setGrid img').forEach(im => { if (im.complete && im.naturalWidth) im.classList.add('ld'); });
   setupReveal();
 }
 
@@ -133,7 +142,11 @@ $('filters').addEventListener('click', e => {
 });
 $('grid').addEventListener('click', e => {
   const c = e.target.closest('.card');
-  if (c) openProduct(+c.dataset.i);
+  if (c) openProduct(+c.dataset.i, visible());
+});
+$('setGrid').addEventListener('click', e => {
+  const c = e.target.closest('.card');
+  if (c) openProduct(+c.dataset.i, setIdx());
 });
 
 /* ===== language ===== */
@@ -180,7 +193,8 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeProduct(); closeCart(); return; }
   if ((e.key === 'ArrowLeft' || e.key === 'ArrowRight') && !$('modal').hidden) {
     const d = e.key === 'ArrowRight' ? 1 : -1;
-    stepProduct(document.documentElement.dir === 'rtl' ? -d : d);
+    const dd = document.documentElement.dir === 'rtl' ? -d : d;
+    if (photoCount() > 1) showImg(imgIdx + dd); else stepProduct(dd);
     return;
   }
   if (e.key !== 'Tab') return;
@@ -196,11 +210,12 @@ document.addEventListener('keydown', e => {
 /* ===== product popup ===== */
 function fillProduct(i) {
   const p = products[i], t = T[lang];
-  const im = $('mImgTag');
-  im.classList.remove('ld');
-  im.src = src(p.img);
-  im.alt = pname(p);
-  if (im.complete && im.naturalWidth) im.classList.add('ld');
+  const list = p.imgs || [p.img];
+  $('mDots').innerHTML = list.length > 1 ? list.map(() => '<i></i>').join('') : '';
+  $('mThumbs').hidden = list.length < 2;
+  $('mThumbs').innerHTML = list.length > 1 ? list.map((s, k) => `<button data-k="${k}" aria-label="${k + 1}"><img src="${src(s)}" alt="" loading="lazy"></button>`).join('') : '';
+  list.slice(1).forEach(s => { new Image().src = src(s); });   // preload other photos
+  showImg(imgIdx);
   $('mCat').textContent = catName(p);
   $('mName').textContent = pname(p);
   $('mPrice').textContent = fmt(p.price);
@@ -210,23 +225,47 @@ function fillProduct(i) {
   $('mAdd').disabled = !!p.soldout;
   $('mOrder').hidden = !!p.soldout;
   $('mOrder').href = wa(`${t.orderMsg}:\n🌸 ${pname(p)}\n💰 ${fmt(p.price)}\n🚚 ${t.delivChip}`);
-  const many = visible().length > 1;
+  const items = p.items ? (p.items[lang] || p.items.ku) : '';
+  $('mItems').hidden = !items;
+  $('mItems').textContent = items ? `${t.includes}: ${items}` : '';
+  const many = browse.length > 1;
   $('mPrev').hidden = !many;
   $('mNext').hidden = !many;
 }
 
-function openProduct(i) {
+function showImg(n) {
+  if (openIdx === null) return;
+  const p = products[openIdx], list = p.imgs || [p.img];
+  imgIdx = ((n % list.length) + list.length) % list.length;
+  const im = $('mImgTag');
+  im.classList.remove('ld');
+  im.src = src(list[imgIdx]);
+  im.alt = pname(p);
+  if (im.complete && im.naturalWidth) im.classList.add('ld');
+  $('mDots').querySelectorAll('i').forEach((d, k) => d.classList.toggle('on', k === imgIdx));
+  $('mThumbs').querySelectorAll('button').forEach((b, k) => b.classList.toggle('on', k === imgIdx));
+}
+$('mThumbs').addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (b) showImg(+b.dataset.k);
+});
+const photoCount = () => (openIdx === null ? 0 : (products[openIdx].imgs || []).length);
+
+function openProduct(i, list) {
   openIdx = i;
+  imgIdx = 0;
+  browse = list || visible();
   fillProduct(i);
   openModal('modal');
 }
 
 function stepProduct(d) {
-  const v = visible();
+  const v = browse;
   if (v.length < 2 || openIdx === null) return;
   let pos = v.indexOf(openIdx);
   if (pos < 0) pos = 0;
   openIdx = v[(pos + d + v.length) % v.length];
+  imgIdx = 0;
   fillProduct(openIdx);
 }
 
@@ -245,7 +284,8 @@ $('mImg').addEventListener('touchend', e => {
   touchX = null;
   if (Math.abs(dx) < 50) return;
   const rtl = document.documentElement.dir === 'rtl';
-  stepProduct(dx < 0 ? (rtl ? -1 : 1) : (rtl ? 1 : -1));
+  const dd = dx < 0 ? (rtl ? -1 : 1) : (rtl ? 1 : -1);
+  if (photoCount() > 1) showImg(imgIdx + dd); else stepProduct(dd);
 }, { passive: true });
 
 /* ===== cart ===== */
