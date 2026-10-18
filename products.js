@@ -65,9 +65,15 @@ const U = "?auto=format&fit=crop&w=800&q=80";
 const UNS = "https://images.unsplash.com/";
 
 const PRODUCTS = [
+  // ---------- بەرهەمێن نوی ----------
+  p(["images/red-granny-cardigan-1.webp", "images/red-granny-cardigan-2.webp"],
+    "کاردیگانا چوارگۆشێن سور", "Red Granny Cardigan", 12000, "outfit", { new: true }),
+  p("images/cherry-cardigan-b.webp", "کاردیگانا گیلاس ٢", "Cherry Cardigan 2", 12000, "outfit", { new: true }),
+  p("images/flower-cardigan.webp", "کاردیگانا گوڵ", "Flower Cardigan", 12000, "outfit", { new: true }),
+
   // ---------- بەرهەمێ نوی: کاردیگانا گیلاس (3 وێنە) ----------
   p(["images/cherry-cardigan-1.webp", "images/cherry-cardigan-2.webp", "images/cherry-cardigan-3.webp"],
-    "چاکیتێ گێلاسێ", "Cherry Cardigan", 12000, "outfit", { new: true }),
+    "کاردیگانا گیلاس", "Cherry Cardigan", 12000, "outfit", { new: true }),
 
   //  وێنە                                  ناڤێ کوردی          ناڤێ ئینگلیزی     نرخ     جۆر
   p(UNS + "photo-1607604276583-eef5d076aa5f" + U, "مەدالیا نازدار",    "Cute Medali",     15000, "medal"),
