@@ -297,3 +297,6 @@ html[dir=ltr] .zone-select{background-position:right 16px center}
 
 /* ===== v10: hidden fix + age select ===== */
 [hidden]{display:none!important}
+
+/* ===== v11: empty category ===== */
+.soon{grid-column:1/-1;padding:48px 0;font-weight:700}

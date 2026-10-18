@@ -73,12 +73,10 @@ const AGE_TIERS = [
 
 
 /* ---------- بەرهەمان: یەک خەت = یەک بەرهەم ---------- */
-/* ئەڤ وێنەیێن Unsplash تەنێ نموونەنە، ب وێنەیێن خۆ بگوهۆڕە (وەکو images/xxx.jpg) */
-const U = "?auto=format&fit=crop&w=800&q=80";
-const UNS = "https://images.unsplash.com/";
 
 const PRODUCTS = [
   // ---------- بەرهەمێن نوی ----------
+  p("images/black-rose-cardigan.webp", "کاردیگانا ڕەش ب گوڵێن سپی", "Black Rose Cardigan", 12000, "outfit", { new: true, ages: true }),
   p(["images/red-granny-cardigan-1.webp", "images/red-granny-cardigan-2.webp"],
     "کاردیگانا چوارگۆشێن سور", "Red Granny Cardigan", 12000, "outfit", { new: true, ages: true }),
   p("images/cherry-cardigan-b.webp", "کاردیگانا گیلاس ٢", "Cherry Cardigan 2", 12000, "outfit", { new: true, ages: true }),
@@ -89,19 +87,13 @@ const PRODUCTS = [
     "کاردیگانا گیلاس", "Cherry Cardigan", 12000, "outfit", { new: true, ages: true }),
 
   //  وێنە                                  ناڤێ کوردی          ناڤێ ئینگلیزی     نرخ     جۆر
-  p(UNS + "photo-1607604276583-eef5d076aa5f" + U, "مەدالیا نازدار",    "Cute Medali",     15000, "medal"),
-  p(UNS + "photo-1615485290382-441e4d049cb5" + U, "مەدالیا گوڵ",       "Flower Medali",   12000, "medal"),
-  p(UNS + "photo-1520903920243-00d872a2d1c9" + U, "ملپێچا گەرم",       "Warm Scarf",      25000, "scarf"),
-  p(UNS + "photo-1608256246200-53e635b5b65f" + U, "ملپێچا ڕۆز",        "Rose Scarf",      28000, "scarf"),
-  p(UNS + "photo-1576871337632-b9aef4c17ab9" + U, "کلاوێ کرۆشێ",       "Crochet Hat",     20000, "hat"),
-  p(UNS + "photo-1576871337622-98d48d1cf531" + U, "کلاوێ زڤستانێ",     "Winter Beanie",   22000, "hat"),
-  p(UNS + "photo-1584992236310-6edddc08acff" + U, "جلوبەرگێ دەستچن",   "Handmade Outfit", 45000, "outfit"),
-  p(UNS + "photo-1596704017254-9b121068fb31" + U, "کاردیگانا پەمبەیی", "Pink Cardigan",   50000, "outfit"),
 
   // ---------- سێت (SETS): جۆر "set" ----------
+  p("images/red-dress-set.webp", "سێتا کراسا سور", "Red Dress Set", 15000, "set", { new: true, items: { ku: "کراس + پێلاو + قوردێلە", en: "Dress + Shoes + Headband" } }),
+  p("images/green-dress-set.webp", "سێتا کراسا سەوز", "Green Dress Set", 15000, "set", { new: true, items: { ku: "کراس + پێلاو + قوردێلە", en: "Dress + Shoes + Headband" } }),
+  p("images/pink-dress-set.webp", "سێتا کراسا پەمبەیی", "Pink Dress Set", 15000, "set", { new: true, items: { ku: "کراس + پێلاو + قوردێلە", en: "Dress + Shoes + Headband" } }),
+  p("images/yellow-dress-set.webp", "سێتا کراسا سپی و زەرد", "Yellow & White Dress Set", 15000, "set", { new: true, items: { ku: "کراس + پێلاو + قوردێلە", en: "Dress + Shoes + Headband" } }),
   // ئەڤ دوو سێتە نموونەنە (نرخ = کۆمێ دوو پارچەیان). وێنە و نرخ و ناڤان ب یێن خۆ بگوهۆڕە یان ڤان دوو خەتان لابە.
-  p(UNS + "photo-1520903920243-00d872a2d1c9" + U, "سێتا زڤستانێ", "Winter Set", 47000, "set", { items: { ku: "کلاو + ملپێچ", en: "Hat + Scarf" } }),
-  p(UNS + "photo-1608256246200-53e635b5b65f" + U, "سێتا ڕۆز",     "Rose Set",   48000, "set", { items: { ku: "کلاو + ملپێچ", en: "Hat + Scarf" } }),
 
   //  ↓ بەرهەمێن نوی ل ڤێرە زێدە بکە (لەپاش دوماهیکا خەتێ، بەری ] )
 ];

@@ -29,7 +29,7 @@ const T = {
     contactLabel: "پەیوەندی", contactTitle: "دیاریا تایبەت ببینە", contactText: "نامەکێ بۆ مە فرێکە و ئەم دێ هاریکاریا تە کەین.", chat: "گفتوگۆ ل WhatsApp",
     orderThis: "داخواز ب WhatsApp", addCart: "بۆ سەبەتێ زێدە بکە", added: "زێدە بوو ✓",
     cartTitle: "سەبەتا من", cartEmpty: "سەبەتا تە ڤالایە. چەند بەرهەمەکان زێدە بکە.", subtotal: "کوژمێ بەرهەمان", delivLabel: "گەهاندن", total: "کوژمێ گشتی",
-    sendOrder: "داخوازیێ ب WhatsApp فرێکە", clear: "سەبەتێ ڤالا بکە", orderMsg: "داخوازیا HEZHA", all: "هەمی", setsLabel: "سێت", setsTitle: "سێتێن تایبەت", setsText: "چەند پارچە ل یەک سێتێ، ئامادە بۆ دیاریێ.", includes: "ناڤەرۆک", newTag: "نوی", soldTag: "تەمام بوو", prev: "یێ بەری", next: "یێ پشتی",
+    sendOrder: "داخوازیێ ب WhatsApp فرێکە", clear: "سەبەتێ ڤالا بکە", orderMsg: "داخوازیا HEZHA", all: "هەمی", soon: "بەرهەم بەزوویی دێن ✿", setsLabel: "سێت", setsTitle: "سێتێن تایبەت", setsText: "چەند پارچە ل یەک سێتێ، ئامادە بۆ دیاریێ.", includes: "ناڤەرۆک", newTag: "نوی", soldTag: "تەمام بوو", prev: "یێ بەری", next: "یێ پشتی",
     rights: "© 2026 HEZHA. هەمی مافا دپاراستی نە.", marq: "HEZHA ✦ کرۆشێیا دەستچن ✦ تشتێن بچویک. هەستێن مەزن ✦ ",
   },
   en: {
@@ -46,7 +46,7 @@ const T = {
     contactLabel: "Contact", contactTitle: "Find your perfect piece", contactText: "Message us and we'll help you choose.", chat: "Chat on WhatsApp",
     orderThis: "Order on WhatsApp", addCart: "Add to cart", added: "Added ✓",
     cartTitle: "My cart", cartEmpty: "Your cart is empty. Add a few pieces you like.", subtotal: "Subtotal", delivLabel: "Delivery", total: "Total",
-    sendOrder: "Send order on WhatsApp", clear: "Clear cart", orderMsg: "HEZHA Order", all: "All", setsLabel: "Sets", setsTitle: "Special sets", setsText: "Several pieces in one set, ready to gift.", includes: "Includes", newTag: "New", soldTag: "Sold out", prev: "Previous", next: "Next",
+    sendOrder: "Send order on WhatsApp", clear: "Clear cart", orderMsg: "HEZHA Order", all: "All", soon: "New pieces coming soon ✿", setsLabel: "Sets", setsTitle: "Special sets", setsText: "Several pieces in one set, ready to gift.", includes: "Includes", newTag: "New", soldTag: "Sold out", prev: "Previous", next: "Next",
     rights: "© 2026 HEZHA. All rights reserved.", marq: "HEZHA ✦ Handmade crochet ✦ Little things. Big feelings. ✦ ",
   }
 };
@@ -89,7 +89,7 @@ const cat = p => CATEGORIES[p.cat] || {};
 const catName = p => cat(p)[lang] || cat(p).ku || '';
 const descOf = p => (p.desc && (p.desc[lang] || p.desc.ku)) || (lang === 'ku' ? cat(p).descKu : cat(p).descEn) || '';
 const setIdx = () => products.map((p, i) => i).filter(i => products[i].cat === 'set');
-const visible = () => products.map((p, i) => i).filter(i => products[i].cat !== 'set' && (filter === 'all' || products[i].cat === filter));
+const visible = () => products.map((p, i) => i).filter(i => (filter === 'all' ? products[i].cat !== 'set' : products[i].cat === filter));
 
 /* ===== scroll reveal (defined before first render) ===== */
 const revealIO = new IntersectionObserver((es, o) => es.forEach(e => {
@@ -109,7 +109,7 @@ function setupReveal() {
 /* ===== gallery: filters + cards ===== */
 function renderFilters() {
   const t = T[lang];
-  const used = [...new Set(products.map(p => p.cat))].filter(c => CATEGORIES[c] && c !== 'set');
+  const used = Object.keys(CATEGORIES);   // every category stays visible, even before it has products
   if (used.length < 2) { $('filters').innerHTML = ''; return; }
   $('filters').innerHTML =
     `<button class="fchip${filter === 'all' ? ' on' : ''}" data-f="all">${t.all}</button>` +
@@ -136,9 +136,10 @@ function cardHTML(i) {
 }
 
 function renderGrid() {
-  $('grid').innerHTML = visible().map(cardHTML).join('');
+  const vis = visible();
+  $('grid').innerHTML = vis.length ? vis.map(cardHTML).join('') : `<p class="empty soon">${T[lang].soon}</p>`;
   const sets = setIdx();
-  $('sets').hidden = !sets.length;
+  $('sets').hidden = !sets.length || filter === 'set';
   $('setGrid').innerHTML = sets.map(cardHTML).join('');
   document.querySelectorAll('#grid img,#setGrid img').forEach(im => { if (im.complete && im.naturalWidth) im.classList.add('ld'); });
   setupReveal();
