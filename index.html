@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HEZHA | Handmade Crochet</title>
+<meta name="description" content="HEZHA: کرۆشێیا دەستچن ل دهۆکێ و هەرێما کوردستانێ. Handmade crochet delivered across Duhok and the Kurdistan Region.">
+<meta name="theme-color" content="#EF5A8C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="HEZHA | Handmade Crochet">
+<meta property="og:description" content="تشتێن بچویک. هەستێن مەزن. Little things. Big feelings.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1584992236310-6edddc08acff?auto=format&fit=crop&w=1200&q=80">
+<meta property="og:locale" content="ku">
+<meta name="twitter:card" content="summary_large_image">
+<script>document.documentElement.classList.add("js")</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Noto+Kufi+Arabic:wght@600;800&family=Vazirmatn:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body id="top">
+
+<header class="site-head">
+  <a class="brand" href="#top">
+    <svg class="bow" viewBox="0 0 24 24"><path d="M12 13a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/><path d="M10.5 11.5C8 9 3 8 3 11c0 2.5 4 2 7.500 1"/><path d="M13.5 11.5C16 9 21 8 21 11c0 2.500-4 2-7.500 1"/><path d="M11 13l-2 8 3-3 3 3-2-8"/></svg>
+    <span>HEZHA</span>
+  </a>
+  <div class="head-actions">
+    <button class="chip" id="langBtn" onclick="cycleLang()">English</button>
+    <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Theme">🌙</button>
+    <button class="icon-btn cart-btn" id="cartBtn" onclick="openCart()" aria-label="Cart">
+      <svg class="ico" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="badge" id="cartCount" hidden>0</span>
+    </button>
+    <a class="btn-pink btn-sm" id="orderLink" data-i18n="order" target="_blank" rel="noopener"></a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-card">
+      <span class="tag" data-i18n="heroTag"></span>
+      <h1>HEZHA</h1>
+      <p class="hero-sub" data-i18n="tagline"></p>
+      <p class="hero-text" data-i18n="heroText"></p>
+      <p class="deliv-chip" data-i18n="delivChip"></p>
+      <div class="btn-row">
+        <a class="btn-pink" href="#collections" data-i18n="shop"></a>
+        <a class="btn-white" id="heroWa" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true"><div class="marquee-track" id="marquee"></div></div>
+
+  <section class="block" id="collections">
+    <p class="label" data-i18n="collLabel"></p>
+    <h2 data-i18n="collTitle"></h2>
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="block soft" id="how">
+    <p class="label" data-i18n="howLabel"></p>
+    <h2 data-i18n="howTitle"></h2>
+    <div class="steps">
+      <div class="step"><span class="num">1</span><h3 data-i18n="s1t"></h3><p data-i18n="s1d"></p></div>
+      <div class="step"><span class="num">2</span><h3 data-i18n="s2t"></h3><p data-i18n="s2d"></p></div>
+      <div class="step"><span class="num">3</span><h3 data-i18n="s3t"></h3><p data-i18n="s3d"></p></div>
+    </div>
+  </section>
+
+  <section class="block" id="about">
+    <p class="label" data-i18n="aboutLabel"></p>
+    <h2 data-i18n="aboutTitle"></h2>
+    <p class="lead" data-i18n="aboutText"></p>
+    <div class="feats">
+      <div class="feat"><b data-i18n="f1t"></b><span data-i18n="f1d"></span></div>
+      <div class="feat"><b data-i18n="f2t"></b><span data-i18n="f2d"></span></div>
+      <div class="feat"><b data-i18n="f3t"></b><span data-i18n="f3d"></span></div>
+    </div>
+  </section>
+
+  <section class="block follow" id="follow">
+    <p class="label" data-i18n="followLabel"></p>
+    <h2 data-i18n="followTitle"></h2>
+    <p class="lead" data-i18n="followText"></p>
+    <div class="social-grid">
+      <a class="social-card" href="https://www.instagram.com/hezha_crochet" target="_blank" rel="noopener">
+        <span class="s-ico s-ig">
+          <svg class="ico" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg>
+        </span>
+        <span class="s-txt"><b>Instagram</b><span dir="ltr">@hezha_crochet</span></span>
+        <span class="s-go" data-i18n="followBtn"></span>
+      </a>
+      <a class="social-card" href="https://www.tiktok.com/@hezha120" target="_blank" rel="noopener">
+        <span class="s-ico s-tt">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M14 4v10.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 4c.5 2.5 2 4 4.5 4.2"/></svg>
+        </span>
+        <span class="s-txt"><b>TikTok</b><span dir="ltr">@hezha120</span></span>
+        <span class="s-go" data-i18n="followBtn"></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="block contact" id="contact">
+    <p class="label" data-i18n="contactLabel"></p>
+    <h2 data-i18n="contactTitle"></h2>
+    <p class="lead" data-i18n="contactText"></p>
+    <a class="btn-pink" id="contactWa" data-i18n="chat" target="_blank" rel="noopener"></a>
+    <a class="phone" id="shopPhone" href="tel:+9647510130527" dir="ltr">0751 013 0527</a>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <section class="ad">
+    <p class="ad-by"><span data-i18n="devBy"></span> <b>Mohammed Chakvan</b></p>
+    <h3 data-i18n="adTitle"></h3>
+    <p class="ad-text" data-i18n="adText"></p>
+    <div class="btn-row">
+      <a class="btn-pink" id="devWa" data-i18n="adBtn" target="_blank" rel="noopener"></a>
+      <a class="btn-glass" href="tel:+9647508863907" dir="ltr">0750 886 3907</a>
+    </div>
+  </section>
+  <span data-i18n="rights"></span>
+</footer>
+
+<!-- Product -->
+<div class="modal" id="modal" hidden onclick="if(event.target===this)closeProduct()">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mName">
+    <button class="close" onclick="closeProduct()" aria-label="Close">✕</button>
+    <div class="sheet-img" id="mImg">
+      <img id="mImgTag" alt="">
+      <button class="nav-btn prev" id="mPrev" onclick="stepProduct(-1)"><svg class="ico" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="nav-btn next" id="mNext" onclick="stepProduct(1)"><svg class="ico" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+    </div>
+    <div class="sheet-body">
+      <span class="card-cat" id="mCat"></span>
+      <h3 id="mName"></h3>
+      <div class="card-meta"><b id="mPrice"></b></div>
+      <p id="mDesc"></p>
+      <p class="deliv-chip" id="mDeliv"></p>
+      <div class="actions">
+        <button class="btn-pink" id="mAdd" onclick="addCurrent()"></button>
+        <a class="btn-outline" id="mOrder" data-i18n="orderThis" target="_blank" rel="noopener"></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Cart -->
+<div class="modal" id="cartModal" hidden onclick="if(event.target===this)closeCart()">
+  <div class="sheet cart-sheet" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+    <button class="close" onclick="closeCart()" aria-label="Close">✕</button>
+    <div class="sheet-body">
+      <h3 id="cartTitle" data-i18n="cartTitle"></h3>
+      <div class="cart-list" id="cartItems"></div>
+      <div class="cart-foot" id="cartFoot" hidden>
+        <div class="cart-sum">
+          <div><span data-i18n="subtotal"></span><b id="sumSub"></b></div>
+          <div><span data-i18n="delivLabel"></span><b id="sumDel"></b></div>
+          <div class="tot"><span data-i18n="total"></span><b id="sumTot"></b></div>
+        </div>
+        <div class="actions">
+          <a class="btn-pink" id="cartOrder" data-i18n="sendOrder" target="_blank" rel="noopener"></a>
+          <button class="btn-outline" onclick="clearCart()" data-i18n="clear"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="products.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
