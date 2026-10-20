@@ -34,17 +34,17 @@ details{margin-top:12px;color:var(--m);font-size:14px}ol{padding-inline-start:20
 </style>
 </head>
 <body>
-<h1>🧶 HEZHA | بەڕێوەبردنی بەرهەمەکان</h1>
+<h1>🧶 HEZHA | ب رێڤە برنا بەرهەمێن </h1>
 <div id="msg" class="msg hide"></div>
 
 <section id="setup" class="card hide">
-  <h2>یەکەمجار: بەستنەوە بە GitHub</h2>
-  <label>ناوی بەکارهێنەری GitHub</label><input id="fo" dir="ltr">
-  <label>ناوی Repository</label><input id="fr" dir="ltr">
+  <h2>ئکەمجار: بەستنەوە بە GitHub</h2>
+  <label>ناڤێ بکارهێنەری GitHub</label><input id="fo" dir="ltr">
+  <label>ناڤێ  Repository</label><input id="fr" dir="ltr">
   <label>Branch</label><input id="fb" dir="ltr" value="main">
   <label>تۆکن (Token)</label><input id="ft" dir="ltr" type="password" placeholder="github_pat_...">
-  <div class="row"><button onclick="saveCfg()">پاشەکەوت و بەستنەوە</button></div>
-  <details><summary>تۆکن چۆن دروست دەکرێت؟</summary>
+  <div class="row"><button onclick="saveCfg()">پەسەند بکە  </button></div>
+  <details><summary>تۆکن چاوا دهێتە دروست کرن ؟</summary>
     <ol>
       <li>بچۆ GitHub ← وێنەی پرۆفایل ← Settings ← Developer settings</li>
       <li>Personal access tokens ← Fine-grained tokens ← Generate new token</li>
@@ -56,20 +56,20 @@ details{margin-top:12px;color:var(--m);font-size:14px}ol{padding-inline-start:20
 </section>
 
 <section id="main" class="hide">
-  <div class="row" style="margin:0 0 12px"><button onclick="openForm()">+ بەرهەمی نوێ</button><button class="o" onclick="logout()">دەرچوون</button></div>
+  <div class="row" style="margin:0 0 12px"><button onclick="openForm()">+ بەرهەمێ نوی  class="o" onclick="logout()">دەرکەفتن</button></div>
 
   <div id="form" class="card hide">
     <h2 id="ftitle"></h2>
-    <label>ناوی بەرهەم (کوردی) *</label><input id="nk">
-    <label>ناوی ئینگلیزی (ئارەزوومەندانە)</label><input id="ne" dir="ltr">
+    <label>ناڤێ بەرهەمی (کوردی) *</label><input id="nk">
+    <label>ناڤێ ئینگلیزی (ئارەزوومەندانە)</label><input id="ne" dir="ltr">
     <label>نرخ (دینار) *</label><input id="pr" type="number" inputmode="numeric">
     <label>جۆر</label><select id="ct" onchange="sync()"></select>
-    <div id="imgBox"><label>وێنەکان * (دەتوانیت چەند وێنەیەک هەڵبژێریت)</label><input id="im" type="file" accept="image/*" multiple onchange="pick()"><div class="prev" id="pv"></div></div>
-    <div id="setBox" class="hide"><label>ناوەڕۆکی سێت (کوردی)</label><input id="ik"><label>ناوەڕۆکی سێت (ئینگلیزی)</label><input id="ie" dir="ltr"></div>
-    <label class="chk"><input id="cn" type="checkbox">نیشانەی «نوێ»</label>
-    <label class="chk"><input id="cs" type="checkbox">تەواو بووە (Sold out)</label>
-    <label class="chk"><input id="ca" type="checkbox">نرخ بەپێی تەمەن</label>
-    <div class="row"><button onclick="save()">پاشەکەوت</button><button class="o" onclick="closeForm()">پاشگەزبوونەوە</button></div>
+    <div id="imgBox"><label>وێنەکان * (دشێی چەند وێنەیەکا هەلبژی  )</label><input id="im" type="file" accept="image/*" multiple onchange="pick()"><div class="prev" id="pv"></div></div>
+    <div id="setBox" class="hide"><label>ناڤەروکا سێت (کوردی)</label><input id="ik"><label>ناڤەروکا سێتی (ئینگلیزی)</label><input id="ie" dir="ltr"></div>
+    <label class="chk"><input id="cn" type="checkbox">نیشانا «نوێ»</label>
+    <label class="chk"><input id="cs" type="checkbox">خلاس بووە (Sold out)</label>
+    <label class="chk"><input id="ca" type="checkbox">نرخ ل دیڤ تەمەن</label>
+    <div class="row"><button onclick="save()">پاشەکەوت</button><button class="o" onclick="closeForm()"> لێڤەبوون </button></div>
   </div>
 
   <div id="list"></div>
@@ -119,7 +119,7 @@ async function mutate(fn,msg){
 }
 
 async function load(){
-  busy('چاوەڕێ بە...');
+  busy('چاڤەرێبە...');
   try{const f=await getFile('products.js');DATA=parse(f.text);render()}
   catch(e){
     const m=e.status==401?'تۆکن هەڵەیە یان بەسەرچووە.':e.status==404?'Repository یان فایلی products.js نەدۆزرایەوە.':'نەتوانرا بخوێندرێتەوە: '+e.message;
@@ -139,7 +139,7 @@ function sync(){$('setBox').className=$('ct').value=='set'?'':'hide'}
 function openForm(i){
   files=[];$('pv').innerHTML='';$('im').value='';
   editing=i==null?null:DATA.PRODUCTS[i];const p=editing;
-  $('ftitle').textContent=p?'دەستکاریکردنی بەرهەم':'بەرهەمی نوێ';
+  $('ftitle').textContent=p?'دەستکاریکرنا بەرهەمی':'بەرهەمی نوێ';
   $('nk').value=p?p.name.ku:'';$('ne').value=p&&p.name.en!==p.name.ku?p.name.en:'';
   $('pr').value=p?p.price:'';$('ct').value=p?p.cat:Object.keys(DATA.CATEGORIES)[0];
   $('ik').value=p&&p.items?p.items.ku:'';$('ie').value=p&&p.items?p.items.en:'';
