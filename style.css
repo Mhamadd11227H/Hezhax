@@ -300,3 +300,13 @@ html[dir=ltr] .zone-select{background-position:right 16px center}
 
 /* ===== v11: empty category ===== */
 .soon{grid-column:1/-1;padding:48px 0;font-weight:700}
+
+/* ===== fallback for older iPhones (iOS 14 and below): no aspect-ratio / color-mix ===== */
+@supports not (aspect-ratio:1){
+  .card .pic{height:0;padding-top:133.34%}
+  .sheet-img{height:0;padding-top:133.34%;max-height:none}
+  .sheet-img img{position:absolute;inset:0}
+}
+@supports not (background:color-mix(in srgb,red,blue)){
+  .card{background:rgba(24,12,34,.75)}
+}
