@@ -1,211 +1,124 @@
 <!DOCTYPE html>
-<html lang="ckb" dir="rtl">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow">
-<title>HEZHA | ئەدمین</title>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+<html lang="ku" dir="rtl"><head><meta charset="UTF-8"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>پانێلا ئەدمین | SEPAN STYLE</title><link rel="icon" href="favicon.png">
+<script>try{if(localStorage.getItem("theme")==="dark")document.documentElement.classList.add("dark")}catch(e){}</script>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Kufi+Arabic:wght@600;800&family=Vazirmatn:wght@400;500;700&family=Cormorant+Garamond:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="theme.css?v=1">
 <style>
-:root{--p:#EF5A8C;--bg:#fff7fa;--c:#fff;--t:#2b1d24;--m:#7a6670;--b:#f0d9e1}
-@media(prefers-color-scheme:dark){:root{--bg:#1c1418;--c:#2a1f25;--t:#f7eaf0;--m:#b9a2ad;--b:#42313a}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--t);font:16px/1.6 Vazirmatn,Tahoma,sans-serif;padding:16px;max-width:720px;margin-inline:auto}
-h1{font-size:22px;margin:8px 0 16px}h2{font-size:18px;margin:0 0 12px}
-.card{background:var(--c);border:1px solid var(--b);border-radius:16px;padding:14px;margin-bottom:12px}
-label{display:block;margin:10px 0 4px;color:var(--m);font-size:14px}
-input,select{width:100%;padding:11px;border:1px solid var(--b);border-radius:10px;background:var(--bg);color:var(--t);font:inherit}
-input[type=checkbox]{width:auto;margin-inline-end:8px}
-.chk{display:flex;align-items:center;margin:10px 0;color:var(--t)}
-button{font:inherit;border:0;border-radius:999px;padding:10px 18px;cursor:pointer;background:var(--p);color:#fff;font-weight:700}
-button.o{background:transparent;color:var(--p);border:1px solid var(--p)}
-button.s{padding:6px 12px;font-size:14px}
-.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.item{display:flex;gap:12px;align-items:center}
-.item img{width:64px;height:64px;object-fit:cover;border-radius:10px;background:var(--b)}
-.item .i{flex:1;min-width:0}.item b{display:block}
-.tag{font-size:12px;background:var(--b);border-radius:99px;padding:1px 8px;margin-inline-end:4px}
-.prev{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.prev img{width:72px;height:72px;object-fit:cover;border-radius:10px}
-#st{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;color:#fff;font-size:18px;text-align:center;padding:24px;z-index:9}
-#st.on{display:flex}
-.msg{padding:12px;border-radius:12px;background:#e8f8ee;color:#145a32;margin-bottom:12px}.msg.e{background:#fde8e8;color:#8a1c1c}
-details{margin-top:12px;color:var(--m);font-size:14px}ol{padding-inline-start:20px}
-.hide{display:none}
-</style>
-</head>
-<body>
-<h1>🧶 HEZHA | ب رێڤە برنا بەرهەمێن </h1>
-<div id="msg" class="msg hide"></div>
-
-<section id="setup" class="card hide">
-  <h2>ئکەمجار: بەستنەوە بە GitHub</h2>
-  <label>ناڤێ بکارهێنەری GitHub</label><input id="fo" dir="ltr">
-  <label>ناڤێ  Repository</label><input id="fr" dir="ltr">
-  <label>Branch</label><input id="fb" dir="ltr" value="main">
-  <label>تۆکن (Token)</label><input id="ft" dir="ltr" type="password" placeholder="github_pat_...">
-  <div class="row"><button onclick="saveCfg()">پەسەند بکە  </button></div>
-  <details><summary>تۆکن چاوا دهێتە دروست کرن ؟</summary>
-    <ol>
-      <li>بچۆ GitHub ← وێنەی پرۆفایل ← Settings ← Developer settings</li>
-      <li>Personal access tokens ← Fine-grained tokens ← Generate new token</li>
-      <li>Expiration: 1 year. لە Repository access تەنها ڕیپۆی ئەم سایتە هەڵبژێرە</li>
-      <li>لە Permissions ← Repository permissions ← <b>Contents</b> بکە بە <b>Read and write</b></li>
-      <li>Generate token، دواتر کۆپیی بکە و لێرە دایبنێ. تەنها یەکجار پیشان دەدرێت.</li>
-    </ol>
-  </details>
-</section>
-
-<section id="main" class="hide">
-  <div class="row" style="margin:0 0 12px"><button onclick="openForm()">+ بەرهەمێ نوی  class="o" onclick="logout()">دەرکەفتن</button></div>
-
-  <div id="form" class="card hide">
-    <h2 id="ftitle"></h2>
-    <label>ناڤێ بەرهەمی (کوردی) *</label><input id="nk">
-    <label>ناڤێ ئینگلیزی (ئارەزوومەندانە)</label><input id="ne" dir="ltr">
-    <label>نرخ (دینار) *</label><input id="pr" type="number" inputmode="numeric">
-    <label>جۆر</label><select id="ct" onchange="sync()"></select>
-    <div id="imgBox"><label>وێنەکان * (دشێی چەند وێنەیەکا هەلبژی  )</label><input id="im" type="file" accept="image/*" multiple onchange="pick()"><div class="prev" id="pv"></div></div>
-    <div id="setBox" class="hide"><label>ناڤەروکا سێت (کوردی)</label><input id="ik"><label>ناڤەروکا سێتی (ئینگلیزی)</label><input id="ie" dir="ltr"></div>
-    <label class="chk"><input id="cn" type="checkbox">نیشانا «نوێ»</label>
-    <label class="chk"><input id="cs" type="checkbox">خلاس بووە (Sold out)</label>
-    <label class="chk"><input id="ca" type="checkbox">نرخ ل دیڤ تەمەن</label>
-    <div class="row"><button onclick="save()">پاشەکەوت</button><button class="o" onclick="closeForm()"> لێڤەبوون </button></div>
-  </div>
-
-  <div id="list"></div>
-</section>
-<div id="st"></div>
-
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}[hidden]{display:none!important}
+body{font:15px/1.7 Vazirmatn,sans-serif;color:var(--ink);padding:14px 14px calc(50px + env(safe-area-inset-bottom,0px));min-height:100vh}
+button{font:inherit;border:0;background:none;color:inherit;cursor:pointer}
+.w{max-width:560px;margin:0 auto}
+.cap{display:block;font:700 11px 'Cormorant Garamond',serif;letter-spacing:5px;color:var(--r2);direction:ltr}
+.script{display:block;font:400 64px/1.1 'Great Vibes',cursive;direction:ltr;background:linear-gradient(110deg,var(--ink),var(--r3) 55%,var(--r1));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ring{display:inline-block;padding:3px;border-radius:50%;background:conic-gradient(#F9DFD3,#B76E79,#D9A08C,#8d4a55,#F9DFD3);box-shadow:var(--sh)}.ring img{display:block;width:84px;height:84px;border-radius:50%;border:3px solid var(--bg)}
+label{display:block;font-weight:700;font-size:13.5px;margin:16px 0 6px}
+input:not([type=checkbox]),select{width:100%;padding:13px 16px;border-radius:16px;border:1.5px solid rgba(183,110,121,.28);background:var(--glass);color:var(--ink);font:inherit;transition:.2s}
+input:focus,select:focus{outline:0;border-color:var(--r3);box-shadow:0 0 0 4px rgba(183,110,121,.18)}
+.go{position:relative;overflow:hidden;display:block;width:100%;margin-top:20px;padding:14px;border-radius:99px;background:var(--g);color:var(--on);font-weight:800;box-shadow:0 14px 30px -12px var(--r3);transition:transform .2s}
+.go::after{content:"";position:absolute;top:0;bottom:0;width:60px;left:-100px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);animation:sh 4s infinite}@keyframes sh{40%,100%{left:130%}}
+.go:active{transform:scale(.97)}.go:disabled{opacity:.6}
+.ghost{padding:7px 16px;border-radius:99px;background:var(--glass);border:1px solid var(--edge);font-size:13px;font-weight:700;color:var(--ink)}
+.msg{min-height:24px;margin-top:10px;text-align:center;color:var(--r3);font-weight:700;font-size:13.5px}
+.lg{min-height:calc(100vh - 40px);display:grid;place-items:center}
+.lg-card{width:100%;max-width:400px;text-align:center;padding:34px 24px 26px;border-radius:36px;background:var(--glass);border:1px solid var(--edge);box-shadow:var(--sh)}
+.lg-card label{text-align:start}.lg-card .script{margin-top:12px}.lg-card .cap{margin-bottom:6px}
+.sw{display:flex!important;align-items:center;gap:10px;font-weight:500!important;color:var(--mute);cursor:pointer}.sw input{display:none}
+.sw i{flex:none;width:42px;height:24px;border-radius:99px;background:rgba(183,110,121,.25);position:relative;transition:.25s}
+.sw i::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.25);transition:.25s}
+.sw input:checked+i{background:var(--g)}.sw input:checked+i::after{inset-inline-start:21px}
+.bar{position:sticky;top:calc(8px + env(safe-area-inset-top,0px));z-index:20;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:7px 8px 7px 14px;border-radius:99px;background:var(--glass);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--edge);box-shadow:var(--sh);margin-bottom:16px}
+.bb{display:flex;align-items:center;gap:10px;direction:ltr}.bb img{width:38px;height:38px;border-radius:50%}.bb b{display:block;font:700 16px 'Cormorant Garamond',serif;letter-spacing:3px;line-height:1.1}.bb .cap{font-size:9px;letter-spacing:4px}
+.bar-r{display:flex;gap:6px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.st{text-align:center;padding:14px 6px;border-radius:24px;background:var(--glass);border:1px solid var(--edge);box-shadow:var(--sh)}
+.st b{display:block;font:700 28px/1.1 'Cormorant Garamond',serif;color:var(--r1)}.st span{font-size:12px;color:var(--mute);font-weight:700}
+.panel{position:relative;padding:24px 18px 20px;margin-bottom:16px;border-radius:32px;background:var(--glass);border:1px solid var(--edge);box-shadow:var(--sh)}
+.panel::before{content:"";position:absolute;top:0;inset-inline:34px;height:2px;border-radius:2px;background:var(--g)}
+.panel h2{font:800 19px 'Noto Kufi Arabic',sans-serif;margin-bottom:2px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{margin:0!important;cursor:pointer}.chip input{display:none}
+.chip span{display:block;min-width:46px;text-align:center;padding:8px 14px;border-radius:99px;border:1.5px solid rgba(183,110,121,.3);font-weight:700;font-size:13px;color:var(--mute);transition:.2s}
+.chip input:checked+span{background:var(--g);color:var(--on);border-color:transparent;box-shadow:0 8px 18px -8px var(--r3)}
+.drop{display:flex!important;flex-direction:column;align-items:center;gap:2px;padding:20px;border-radius:22px;border:1.5px dashed rgba(183,110,121,.5);background:rgba(183,110,121,.06);text-align:center;color:var(--mute);cursor:pointer;font-weight:500!important}
+.drop b{color:var(--r1);font-size:15px}.drop input{display:none}
+.pv{display:flex;gap:8px;overflow-x:auto;margin-top:10px}.pv img{flex:none;width:60px;height:74px;object-fit:cover;border-radius:14px;box-shadow:var(--sh)}
+.it{display:flex;align-items:center;gap:12px;padding:12px 0;border-top:1px solid rgba(183,110,121,.18)}.it:first-child{border-top:0}
+.th{flex:none;width:62px;height:78px;border-radius:18px;overflow:hidden;background:linear-gradient(135deg,var(--a1),var(--a2));display:grid;place-items:center;font-size:26px;box-shadow:var(--sh)}.th img{width:100%;height:100%;object-fit:cover}
+.in{flex:1;min-width:0}.in b{display:block;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pr{font:700 15px 'Cormorant Garamond',serif;color:var(--r1);letter-spacing:.5px}.pr small{font:500 12px Vazirmatn;color:var(--mute)}
+.ch{display:flex;flex-wrap:wrap;gap:4px;margin-top:3px}.ch i,.ch em{font-style:normal;font-size:11px;font-weight:700;padding:0 9px;border-radius:99px;background:rgba(183,110,121,.14);color:var(--r1)}.ch em{background:var(--g);color:var(--on)}.ch em.x{background:#3A2125;color:#fff}
+.it.so .th img{filter:grayscale(.7);opacity:.6}
+.ac{display:flex;flex-direction:column;gap:6px}.ac button{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--glass);border:1px solid var(--edge);color:var(--r1);transition:.2s}
+.ac button:active{transform:scale(.88)}.ac button.d{color:#c0392b}
+.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.none{text-align:center;color:var(--mute);padding:26px 0}
+.out{display:block;margin:6px auto 0}
+</style></head><body><div class="w">
+<div id="login" class="lg"><div class="lg-card">
+<span class="ring"><img src="logo.png" alt=""></span>
+<span class="script">Sepan</span><span class="cap">ADMIN PANEL</span>
+<label>توکنا GitHub</label><input id="tk" type="password" dir="ltr" placeholder="github_pat_..." autocomplete="off">
+<label class="sw"><input type="checkbox" id="rm"><i></i><span>توکنێ ل سەر ڤی ئامیری بپارێزە</span></label>
+<button class="go" onclick="signIn()">چوونە ژۆر</button><p id="lm" class="msg"></p></div></div>
+<div id="app" hidden>
+<div class="bar"><div class="bb"><img src="logo.png" alt=""><div><b>SEPAN STYLE</b><span class="cap">ADMIN PANEL</span></div></div><div class="bar-r"><a class="ghost" href="index.html" target="_blank">وێبسایت</a><button class="ghost" onclick="signOut()">دەرکەفتن</button></div></div>
+<div class="stats" id="stats"></div>
+<section class="panel"><span class="cap" style="text-align:start">NEW PRODUCT</span><h2>بەرهەمەکێ نوی</h2>
+<label>ناڤ</label><input id="n">
+<label>نرخ (دینار، ئەگەر نزانی ڤالا بهێڵە)</label><input id="p" inputmode="numeric">
+<label>جۆر</label><select id="cat"><option>دریش</option><option>بلوز</option><option>پانتۆل</option><option>عەبا</option><option>سێت</option><option>تر</option></select>
+<label>سایز</label><div class="chips" id="sz"></div>
+<label>وێنە</label><label class="drop"><b>＋ وێنە هەلبژێرە</b><span>دکارێ چەندان وێنەیان هەلبژێری</span><input id="f" type="file" accept="image/*" multiple></label><div class="pv" id="pv"></div>
+<label class="sw"><input type="checkbox" id="nw"><i></i><span>نیشانکرن ب "نوی"</span></label>
+<button class="go" id="ab" onclick="add()">زێدەکرن</button><p id="msg" class="msg"></p></section>
+<section class="panel"><span class="cap" style="text-align:start">COLLECTION</span><h2>بەرهەمێن هەین</h2><div id="list"></div></section>
+</div></div>
+<script src="config.js"></script>
 <script>
-const $=id=>document.getElementById(id);
-const K='hezha_admin';
-let cfg=null,DATA=null,editing=null,files=[];
-try{cfg=JSON.parse(localStorage.getItem(K)||'null')}catch(e){}
-
-const enc=s=>{let b='';new TextEncoder().encode(s).forEach(x=>b+=String.fromCharCode(x));return btoa(b)};
-const dec=b=>new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\n/g,'')),c=>c.charCodeAt(0)));
-const blob64=b=>new Promise(r=>{const f=new FileReader();f.onload=()=>r(f.result.split(',')[1]);f.readAsDataURL(b)});
-const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function say(t,err){const m=$('msg');m.textContent=t;m.className='msg'+(err?' e':'');setTimeout(()=>m.className='msg hide',err?9000:7000)}
-function busy(t){const s=$('st');s.textContent=t||'';s.className=t?'on':''}
-
-async function api(path,opt={}){
-  const r=await fetch(`https://api.github.com/repos/${cfg.owner}/${cfg.repo}/${path}`,{...opt,cache:'no-store',headers:{Authorization:'Bearer '+cfg.token,Accept:'application/vnd.github+json','Content-Type':'application/json'}});
-  if(!r.ok){const e=new Error(r.status);e.status=r.status;throw e}
-  return r.json();
-}
-async function getFile(p){const j=await api(`contents/${p}?ref=${cfg.branch}&t=${Date.now()}`);return{sha:j.sha,text:dec(j.content)}}
-async function putFile(p,content,msg,sha){return api(`contents/${p}`,{method:'PUT',body:JSON.stringify({message:msg,content,branch:cfg.branch,...(sha?{sha}:{})})})}
-
-const parse=t=>new Function(t+';return {PRODUCTS,CATEGORIES,AGE_TIERS}')();
-const clean=p=>({imgs:p.imgs,name:{ku:p.name.ku,en:p.name.en},price:p.price,cat:p.cat,new:p.new,soldout:p.soldout,ages:p.ages,items:p.items,desc:p.desc});
-function line(p){
-  const x={};['new','soldout','ages','items','desc'].forEach(k=>{if(p[k])x[k]=p[k]});
-  const en=p.name.en===p.name.ku?'':p.name.en;
-  return `  p(${JSON.stringify(p.imgs.length===1?p.imgs[0]:p.imgs)}, ${JSON.stringify(p.name.ku)}, ${JSON.stringify(en)}, ${Number(p.price)||0}, ${JSON.stringify(p.cat)}, ${JSON.stringify(x)}),`;
-}
-function build(text,list){
-  const a=text.indexOf('/*ADMIN_START*/'),b=text.indexOf('/*ADMIN_END*/');
-  if(a<0||b<0)throw new Error('markers');
-  return text.slice(0,a)+'/*ADMIN_START*/\n'+list.map(line).join('\n')+'\n  '+text.slice(b);
-}
-async function mutate(fn,msg){
-  for(let i=0;i<3;i++){
-    const f=await getFile('products.js');const d=parse(f.text);
-    const list=fn(d.PRODUCTS.map(clean));
-    try{await putFile('products.js',enc(build(f.text,list)),msg,f.sha);return}
-    catch(e){if(e.status!==409&&e.status!==422||i==2)throw e}
-  }
-}
-
-async function load(){
-  busy('چاڤەرێبە...');
-  try{const f=await getFile('products.js');DATA=parse(f.text);render()}
-  catch(e){
-    const m=e.status==401?'تۆکن هەڵەیە یان بەسەرچووە.':e.status==404?'Repository یان فایلی products.js نەدۆزرایەوە.':'نەتوانرا بخوێندرێتەوە: '+e.message;
-    say(m,1);show('setup');
-  }
-  busy();
-}
-function show(w){$('setup').className='card'+(w=='setup'?'':' hide');$('main').className=w=='main'?'':'hide'}
-function render(){
-  show('main');
-  const C=DATA.CATEGORIES;
-  $('ct').innerHTML=Object.keys(C).map(k=>`<option value="${k}">${esc(C[k].ku)}</option>`).join('');
-  $('list').innerHTML=DATA.PRODUCTS.map((p,i)=>`<div class="card item"><img src="${esc(p.imgs[0])}" alt=""><div class="i"><b>${esc(p.name.ku)}</b>${Number(p.price).toLocaleString()} دینار<div><span class="tag">${esc((C[p.cat]||{}).ku||p.cat)}</span>${p.new?'<span class="tag">نوێ</span>':''}${p.soldout?'<span class="tag">تەواو بوو</span>':''}</div></div>
-  <div style="display:grid;gap:6px"><button class="s" onclick="openForm(${i})">دەستکاری</button><button class="s o" onclick="toggleSold(${i})">${p.soldout?'بەردەستە':'تەواو بوو'}</button><button class="s o" onclick="del(${i})">سڕینەوە</button></div></div>`).join('')||'<p>هیچ بەرهەمێک نییە.</p>';
-}
-function sync(){$('setBox').className=$('ct').value=='set'?'':'hide'}
-function openForm(i){
-  files=[];$('pv').innerHTML='';$('im').value='';
-  editing=i==null?null:DATA.PRODUCTS[i];const p=editing;
-  $('ftitle').textContent=p?'دەستکاریکرنا بەرهەمی':'بەرهەمی نوێ';
-  $('nk').value=p?p.name.ku:'';$('ne').value=p&&p.name.en!==p.name.ku?p.name.en:'';
-  $('pr').value=p?p.price:'';$('ct').value=p?p.cat:Object.keys(DATA.CATEGORIES)[0];
-  $('ik').value=p&&p.items?p.items.ku:'';$('ie').value=p&&p.items?p.items.en:'';
-  $('cn').checked=p?!!p.new:true;$('cs').checked=p?!!p.soldout:false;$('ca').checked=p?!!p.ages:false;
-  $('imgBox').className=p?'hide':'';sync();
-  $('form').className='card';$('form').scrollIntoView({behavior:'smooth'});
-}
-function closeForm(){$('form').className='card hide'}
-function pick(){files=[...$('im').files];$('pv').innerHTML='';files.forEach(f=>{const i=new Image();i.src=URL.createObjectURL(f);$('pv').appendChild(i)})}
-
-async function shrink(file){
-  const bm=await createImageBitmap(file);const w=Math.min(900,bm.width),h=Math.round(bm.height*w/bm.width);
-  const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(bm,0,0,w,h);
-  let b=await new Promise(r=>c.toBlob(r,'image/webp',.82)),ext='webp';
-  if(b.type!=='image/webp'){b=await new Promise(r=>c.toBlob(r,'image/jpeg',.85));ext='jpg'}
-  return{b,ext};
-}
-async function save(){
-  const ku=$('nk').value.trim(),price=parseInt($('pr').value,10);
-  if(!ku||isNaN(price))return say('ناو و نرخ پێویستن.',1);
-  if(!editing&&!files.length)return say('تکایە لانیکەم یەک وێنە هەڵبژێرە.',1);
-  const f={name:{ku,en:$('ne').value.trim()||ku},price,cat:$('ct').value,new:$('cn').checked,soldout:$('cs').checked,ages:$('ca').checked};
-  if(f.cat=='set'&&$('ik').value.trim())f.items={ku:$('ik').value.trim(),en:$('ie').value.trim()||$('ik').value.trim()};
-  try{
-    if(editing){
-      const id=editing.id;
-      busy('پاشەکەوت دەکرێت...');
-      await mutate(l=>l.map(p=>(p.imgs[0]+'#'+p.name.ku)===id?{...p,...f,items:f.items}:p),'Edit product');
-    }else{
-      const imgs=[],t=Date.now().toString(36);
-      for(let i=0;i<files.length;i++){
-        busy(`وێنە بارکراوە ${i+1}/${files.length}...`);
-        const {b,ext}=await shrink(files[i]);const path=`images/p${t}${i}.${ext}`;
-        await putFile(path,await blob64(b),'Add image');imgs.push(path);
-      }
-      busy('بەرهەم زیاد دەکرێت...');
-      await mutate(l=>[{imgs,...f},...l],'Add product');
-    }
-    closeForm();say('✓ سەرکەوتوو بوو! سایتەکە لە ماوەی نزیکەی ١ خولەکدا نوێ دەبێتەوە.');
-  }catch(e){say('هەڵە ڕوویدا ('+e.message+'). دووبارە هەوڵبدەرەوە.',1)}
-  busy();await load();
-}
-async function del(i){
-  const p=DATA.PRODUCTS[i];if(!confirm('دڵنیایت دەتەوێت «'+p.name.ku+'» بسڕیتەوە؟'))return;
-  const id=p.imgs[0]+'#'+p.name.ku;busy('دەسڕدرێتەوە...');
-  try{await mutate(l=>l.filter(x=>(x.imgs[0]+'#'+x.name.ku)!==id),'Delete product');say('✓ سڕایەوە. سایتەکە لە ماوەی ١ خولەکدا نوێ دەبێتەوە.')}catch(e){say('هەڵە: '+e.message,1)}
-  busy();await load();
-}
-async function toggleSold(i){
-  const p=DATA.PRODUCTS[i],id=p.imgs[0]+'#'+p.name.ku;busy('چاوەڕێ بە...');
-  try{await mutate(l=>l.map(x=>(x.imgs[0]+'#'+x.name.ku)===id?{...x,soldout:!x.soldout}:x),'Toggle sold out');say('✓ گۆڕدرا.')}catch(e){say('هەڵە: '+e.message,1)}
-  busy();await load();
-}
-async function saveCfg(){
-  cfg={owner:$('fo').value.trim(),repo:$('fr').value.trim(),branch:$('fb').value.trim()||'main',token:$('ft').value.trim()};
-  if(!cfg.owner||!cfg.repo||!cfg.token)return say('هەموو خانەکان پڕ بکەرەوە.',1);
-  try{localStorage.setItem(K,JSON.stringify(cfg))}catch(e){}
-  await load();
-}
-function logout(){if(confirm('تۆکن لەم ئامێرە دەسڕدرێتەوە. دڵنیایت؟')){localStorage.removeItem(K);cfg=null;show('setup')}}
-
-if(cfg)load();else{
-  const h=location.hostname;
-  if(h.endsWith('.github.io')){$('fo').value=h.split('.')[0];$('fr').value=location.pathname.split('/')[1]&&!location.pathname.split('/')[1].endsWith('.html')?location.pathname.split('/')[1]:h}
-  show('setup');
-}
-</script>
-</body>
-</html>
+const $=id=>document.getElementById(id),say=t=>$('msg').textContent=t,esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const G={o:CFG.GH_OWNER,r:CFG.GH_REPO,b:CFG.GH_BRANCH||'main'};let TK='',L=[];
+try{TK=localStorage.getItem('tk')||''}catch(e){}
+if(!G.o||!G.r)$('lm').textContent='⚠️ ناڤێ GitHub و repository ل config.js پڕ بکە';
+const num=s=>+String(s).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[^\d]/g,'')||null;
+const api=(p,o={})=>fetch(`https://api.github.com/repos/${G.o}/${G.r}/contents/${p}`,{...o,headers:{Authorization:'Bearer '+TK,Accept:'application/vnd.github+json'}});
+const enc=s=>{let b='';new TextEncoder().encode(s).forEach(c=>b+=String.fromCharCode(c));return btoa(b)};
+const dec=b=>new TextDecoder().decode(Uint8Array.from(atob(b.replace(/\s/g,'')),c=>c.charCodeAt(0)));
+$('sz').innerHTML=['S','M','L','XL','XXL','Free'].map(s=>`<label class="chip"><input type="checkbox" value="${s}"><span>${s}</span></label>`).join('');
+$('f').onchange=()=>{$('pv').innerHTML=[...$('f').files].map(f=>`<img src="${URL.createObjectURL(f)}" alt="">`).join('')};
+async function get(){const r=await api('products.json?ref='+G.b);
+ if(r.status===404)return{data:[]};
+ if(!r.ok)throw new Error(r.status===401?'توکن خەلەتە یان بوویە کۆن':r.status===403?'توکن مافێ نڤیسینێ نینە':'GitHub '+r.status);
+ const j=await r.json();return{data:JSON.parse(dec(j.content)),sha:j.sha}}
+async function mutate(fn,msg){const {data,sha}=await get(),nd=fn(data);
+ const r=await api('products.json',{method:'PUT',body:JSON.stringify({message:msg,content:enc(JSON.stringify(nd,null,1)),sha,branch:G.b})});
+ if(!r.ok)throw new Error((await r.json()).message||r.status);return nd}
+function shrink(file){return new Promise(r=>{const i=new Image();i.onload=()=>{const k=Math.min(1,900/i.width),c=document.createElement('canvas');c.width=Math.round(i.width*k);c.height=Math.round(i.height*k);c.getContext('2d').drawImage(i,0,0,c.width,c.height);c.toBlob(r,'image/jpeg',.82)};i.src=URL.createObjectURL(file)})}
+async function upImg(f){const b=await shrink(f),data=await new Promise(r=>{const x=new FileReader();x.onload=()=>r(x.result.split(',')[1]);x.readAsDataURL(b)}),path='images/'+Date.now()+Math.random().toString(36).slice(2,6)+'.jpg';
+ const r=await api(path,{method:'PUT',body:JSON.stringify({message:'add image',content:data,branch:G.b})});
+ if(!r.ok)throw new Error((await r.json()).message||r.status);return path}
+async function show(){if(!TK){$('login').hidden=false;$('app').hidden=true;return}
+ try{L=(await get()).data;$('login').hidden=true;$('app').hidden=false;draw()}catch(e){$('lm').textContent=e.message;$('login').hidden=false;$('app').hidden=true}}
+function signIn(){TK=$('tk').value.trim();try{if($('rm').checked)localStorage.setItem('tk',TK)}catch(e){}show()}
+function signOut(){TK='';try{localStorage.removeItem('tk')}catch(e){}$('tk').value='';show()}
+async function add(){const n=$('n').value.trim();if(!n)return alert('ناڤی بنڤیسە');
+ $('ab').disabled=true;
+ try{say('وێنە دهێنە بارکرن...');const im=[];for(const f of $('f').files)im.push(await upImg(f));
+  say('بەرهەم دهێتە پاراستن...');
+  const sizes=[...document.querySelectorAll('#sz input:checked')].map(x=>x.value),pr=num($('p').value),cat=$('cat').value,nw=$('nw').checked;
+  L=await mutate(d=>[{id:Date.now(),name:n,price:pr,category:cat,sizes,images:im,is_new:nw,soldout:false},...d],'add product');
+  $('n').value=$('p').value=$('f').value='';$('pv').innerHTML='';document.querySelectorAll('#sz input,#nw').forEach(x=>x.checked=false);
+  say('✅ زێدە بوو! دەمەکێ کێم ب بەرخۆڤە بگرە هەتا وێبسایت نوی دبیت');draw()}
+ catch(e){say('خەلەتی: '+e.message)}$('ab').disabled=false}
+async function act(id,t){try{let pr;
+ if(t==='d'&&!confirm('تو پشتڕاستی دڤێت ڤی بەرهەمی ژێ ببەی؟'))return;
+ if(t==='p'){const v=prompt('نرخێ نوی (دینار):');if(v===null)return;pr=num(v)}
+ say('دهێتە پاراستن...');
+ L=await mutate(d=>t==='d'?d.filter(p=>p.id!=id):d.map(p=>p.id!=id?p:t==='s'?{...p,soldout:!p.soldout}:{...p,price:pr}),'update product');
+ say('✅ هاتە پاراستن');draw()}catch(e){say('خەلەتی: '+e.message)}}
+const I=d=>`<svg class="i" viewBox="0 0 24 24">${d}</svg>`,
+ ic={p:I('<path d="M4 20h4L19 9l-4-4L4 16v4z"/>'),ok:I('<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>'),no:I('<circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/>'),d:I('<path d="M5 7h14M10 11v6M14 11v6M7 7l1 13h8l1-13M9 7V4h6v3"/>')};
+function draw(){const so=L.filter(p=>p.soldout).length;
+ $('stats').innerHTML=`<div class="st"><b>${L.length}</b><span>بەرهەم</span></div><div class="st"><b>${L.length-so}</b><span>ئامادە</span></div><div class="st"><b>${so}</b><span>تەمام بوو</span></div>`;
+ $('list').innerHTML=L.map(p=>`<div class="it${p.soldout?' so':''}"><div class="th">${p.images?.[0]?`<img src="${esc(p.images[0])}" alt="">`:'👗'}</div><div class="in"><b>${esc(p.name)}</b><div class="pr">${p.price?p.price.toLocaleString('en')+' <small>دینار</small>':'—'}</div><div class="ch">${p.category?`<i>${esc(p.category)}</i>`:''}${(p.sizes||[]).map(s=>`<i>${esc(s)}</i>`).join('')}${p.is_new?'<em>نوی</em>':''}${p.soldout?'<em class="x">تەمام بوو</em>':''}</div></div><div class="ac"><button title="نرخ" onclick="act(${+p.id},'p')">${ic.p}</button><button title="${p.soldout?'ئامادەیە':'تەمام بوو'}" onclick="act(${+p.id},'s')">${p.soldout?ic.ok:ic.no}</button><button class="d" title="سڕین" onclick="act(${+p.id},'d')">${ic.d}</button></div></div>`).join('')||'<p class="none">هێشتا بەرهەم نینن</p>'}
+show();
+</script></body></html>
