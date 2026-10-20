@@ -77,6 +77,7 @@ const AGE_TIERS = [
 
 const PRODUCTS = [
 /*ADMIN_START*/
+  p(["images/pmvh2zd9c0.jpg","images/pmvh2zd9c1.jpg","images/pmvh2zd9c2.jpg"], "كيفريشك", "Rabbit 🐰", 5000, "medal", {"new":true}),
   p("images/black-rose-cardigan.webp", "کاردیگانا ڕەش ب گوڵێن سپی", "Black Rose Cardigan", 12000, "outfit", {"new":true,"ages":true}),
   p(["images/red-granny-cardigan-1.webp","images/red-granny-cardigan-2.webp"], "کاردیگانا چوارگۆشێن سور", "Red Granny Cardigan", 12000, "outfit", {"new":true,"ages":true}),
   p("images/cherry-cardigan-b.webp", "کاردیگانا گیلاس ٢", "Cherry Cardigan 2", 12000, "outfit", {"new":true,"ages":true}),
