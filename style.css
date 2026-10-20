@@ -310,3 +310,8 @@ html[dir=ltr] .zone-select{background-position:right 16px center}
 @supports not (background:color-mix(in srgb,red,blue)){
   .card{background:rgba(24,12,34,.75)}
 }
+
+/* ===== v12: works on every iPhone (no aspect-ratio / inset needed for the photo box) ===== */
+.card .pic{aspect-ratio:auto;height:0;padding-top:133.34%}
+.card .pic img{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%}
+.sheet-img img{top:0;left:0}
