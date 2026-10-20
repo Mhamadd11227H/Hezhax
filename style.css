@@ -315,3 +315,9 @@ html[dir=ltr] .zone-select{background-position:right 16px center}
 .card .pic{aspect-ratio:auto;height:0;padding-top:133.34%}
 .card .pic img{position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%}
 .sheet-img img{top:0;left:0}
+
+/* ===== v13: simplest possible photo box (no fade-in gating, no clipping tricks) ===== */
+.card .pic{overflow:visible;border-radius:0;background:none;isolation:isolate}
+.card .pic img{opacity:1!important;transform:none!important;border-radius:27px 27px 0 0;z-index:0}
+.card .pic .card-cat,.card .pic .badge-new,.card .pic .badge-sold{z-index:2}
+.card .pic.pic-bg{background-size:cover;background-position:center;border-radius:27px 27px 0 0}

@@ -121,8 +121,8 @@ function cardHTML(i) {
   const items = p.items ? (p.items[lang] || p.items.ku) : '';
   return `
     <button class="card${p.soldout ? ' sold' : ''}" data-i="${i}" aria-label="${esc(pname(p))}">
-      <div class="pic">
-        <img src="${src(p.img)}" alt="" loading="lazy" decoding="async">
+      <div class="pic pic-bg" style="background-image:url('${src(p.img)}')">
+        <img src="${src(p.img)}" alt="" decoding="async">
         <span class="card-cat">${catName(p)}</span>
         ${p.new ? `<span class="badge-new">${t.newTag}</span>` : ''}
         ${p.soldout ? `<span class="badge-sold">${t.soldTag}</span>` : ''}
