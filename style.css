@@ -321,3 +321,17 @@ html[dir=ltr] .zone-select{background-position:right 16px center}
 .card .pic img{opacity:1!important;transform:none!important;border-radius:27px 27px 0 0;z-index:0}
 .card .pic .card-cat,.card .pic .badge-new,.card .pic .badge-sold{z-index:2}
 .card .pic.pic-bg{background-size:cover;background-position:center;border-radius:27px 27px 0 0}
+
+/* ===== v14: card photo built like the popup photo (which works on old iPhones): plain blocks, no flex/absolute-image tricks ===== */
+#grid .card,#setGrid .card{display:block}
+#grid .card .pic,#setGrid .card .pic{display:block;position:relative;width:100%;height:0;padding:0;overflow:hidden;border-radius:27px 27px 0 0;aspect-ratio:auto;background-color:var(--a1)}
+#grid .card .pic img,#setGrid .card .pic img{position:static;display:block;width:100%;height:100%;object-fit:cover;opacity:1!important;transform:none!important;border-radius:0}
+#grid .card .glass,#setGrid .card .glass{display:block;position:static}
+#grid .card .pic .card-cat,#setGrid .card .pic .card-cat,#grid .card .pic .badge-new,#setGrid .card .pic .badge-new,#grid .card .pic .badge-sold,#setGrid .card .pic .badge-sold{position:absolute;top:12px;z-index:2}
+[dir=rtl] .card .pic .card-cat{right:12px;left:auto}
+[dir=rtl] .card .pic .badge-new,[dir=rtl] .card .pic .badge-sold{left:12px;right:auto}
+[dir=ltr] .card .pic .card-cat{left:12px;right:auto}
+[dir=ltr] .card .pic .badge-new,[dir=ltr] .card .pic .badge-sold{right:12px;left:auto}
+@supports (aspect-ratio:1){
+  #grid .card .pic,#setGrid .card .pic{height:auto;aspect-ratio:3/4}
+}

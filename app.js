@@ -143,7 +143,16 @@ function renderGrid() {
   $('setGrid').innerHTML = sets.map(cardHTML).join('');
   document.querySelectorAll('#grid img,#setGrid img').forEach(im => { if (im.complete && im.naturalWidth) im.classList.add('ld'); });
   setupReveal();
+  fitPics();
 }
+
+/* old iPhones without aspect-ratio: set the photo box height with JS */
+function fitPics() {
+  if (window.CSS && CSS.supports && CSS.supports('aspect-ratio', '1')) return;
+  document.querySelectorAll('#grid .pic,#setGrid .pic').forEach(p => { p.style.height = Math.round(p.offsetWidth * 4 / 3) + 'px'; });
+}
+window.addEventListener('resize', fitPics);
+window.addEventListener('load', fitPics);
 
 // image loaded / failed (load & error don't bubble, so we listen in the capture phase)
 document.addEventListener('load', e => { if (e.target.tagName === 'IMG') e.target.classList.add('ld'); }, true);
