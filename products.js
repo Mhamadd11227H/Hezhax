@@ -1,3 +1,4 @@
+/* ⚠️ ئەم لیستە ب ڕێگەی ئەدمین (admin.html) دهێتە بەڕێوەبرن. بۆ زێدەکرنا بەرهەمان ئەدمینێ بکاربینە. */
 /* =====================================================================
    HEZHA | لیستا بەرهەمان  (تەنێ ئەڤ فایلە بگوهۆڕە بۆ زێدەکرنا بەرهەمان)
    =====================================================================
@@ -75,27 +76,17 @@ const AGE_TIERS = [
 /* ---------- بەرهەمان: یەک خەت = یەک بەرهەم ---------- */
 
 const PRODUCTS = [
-  // ---------- بەرهەمێن نوی ----------
-  p("images/black-rose-cardigan.webp", "کاردیگانا ڕەش ب گوڵێن سپی", "Black Rose Cardigan", 12000, "outfit", { new: true, ages: true }),
-  p(["images/red-granny-cardigan-1.webp", "images/red-granny-cardigan-2.webp"],
-    "کاردیگانا چوارگۆشێن سور", "Red Granny Cardigan", 12000, "outfit", { new: true, ages: true }),
-  p("images/cherry-cardigan-b.webp", "کاردیگانا گیلاس ٢", "Cherry Cardigan 2", 12000, "outfit", { new: true, ages: true }),
-  p("images/flower-cardigan.webp", "کاردیگانا گوڵ", "Flower Cardigan", 12000, "outfit", { new: true, ages: true }),
-
-  // ---------- بەرهەمێ نوی: کاردیگانا گیلاس (3 وێنە) ----------
-  p(["images/cherry-cardigan-1.webp", "images/cherry-cardigan-2.webp", "images/cherry-cardigan-3.webp"],
-    "کاردیگانا گیلاس", "Cherry Cardigan", 12000, "outfit", { new: true, ages: true }),
-
-  //  وێنە                                  ناڤێ کوردی          ناڤێ ئینگلیزی     نرخ     جۆر
-
-  // ---------- سێت (SETS): جۆر "set" ----------
-  p("images/red-dress-set.webp", "سێتا کراسا سور", "Red Dress Set", 15000, "set", { new: true, items: { ku: "کراس + پێلاو + قوردێلە", en: "Dress + Shoes + Headband" } }),
-  p("images/green-dress-set.webp", "سێتا کراسا سەوز", "Green Dress Set", 15000, "set", { new: true, items: { ku: "کراس + پێلاو + قوردێلە", en: "Dress + Shoes + Headband" } }),
-  p("images/pink-dress-set.webp", "سێتا کراسا پەمبەیی", "Pink Dress Set", 15000, "set", { new: true, items: { ku: "کراس + پێلاو + قوردێلە", en: "Dress + Shoes + Headband" } }),
-  p("images/yellow-dress-set.webp", "سێتا کراسا سپی و زەرد", "Yellow & White Dress Set", 15000, "set", { new: true, items: { ku: "کراس + پێلاو + قوردێلە", en: "Dress + Shoes + Headband" } }),
-  // ئەڤ دوو سێتە نموونەنە (نرخ = کۆمێ دوو پارچەیان). وێنە و نرخ و ناڤان ب یێن خۆ بگوهۆڕە یان ڤان دوو خەتان لابە.
-
-  //  ↓ بەرهەمێن نوی ل ڤێرە زێدە بکە (لەپاش دوماهیکا خەتێ، بەری ] )
+/*ADMIN_START*/
+  p("images/black-rose-cardigan.webp", "کاردیگانا ڕەش ب گوڵێن سپی", "Black Rose Cardigan", 12000, "outfit", {"new":true,"ages":true}),
+  p(["images/red-granny-cardigan-1.webp","images/red-granny-cardigan-2.webp"], "کاردیگانا چوارگۆشێن سور", "Red Granny Cardigan", 12000, "outfit", {"new":true,"ages":true}),
+  p("images/cherry-cardigan-b.webp", "کاردیگانا گیلاس ٢", "Cherry Cardigan 2", 12000, "outfit", {"new":true,"ages":true}),
+  p("images/flower-cardigan.webp", "کاردیگانا گوڵ", "Flower Cardigan", 12000, "outfit", {"new":true,"ages":true}),
+  p(["images/cherry-cardigan-1.webp","images/cherry-cardigan-2.webp","images/cherry-cardigan-3.webp"], "کاردیگانا گیلاس", "Cherry Cardigan", 12000, "outfit", {"new":true,"ages":true}),
+  p("images/red-dress-set.webp", "سێتا کراسا سور", "Red Dress Set", 15000, "set", {"new":true,"items":{"ku":"کراس + پێلاو + قوردێلە","en":"Dress + Shoes + Headband"}}),
+  p("images/green-dress-set.webp", "سێتا کراسا سەوز", "Green Dress Set", 15000, "set", {"new":true,"items":{"ku":"کراس + پێلاو + قوردێلە","en":"Dress + Shoes + Headband"}}),
+  p("images/pink-dress-set.webp", "سێتا کراسا پەمبەیی", "Pink Dress Set", 15000, "set", {"new":true,"items":{"ku":"کراس + پێلاو + قوردێلە","en":"Dress + Shoes + Headband"}}),
+  p("images/yellow-dress-set.webp", "سێتا کراسا سپی و زەرد", "Yellow & White Dress Set", 15000, "set", {"new":true,"items":{"ku":"کراس + پێلاو + قوردێلە","en":"Dress + Shoes + Headband"}}),
+  /*ADMIN_END*/
 ];
 
 
